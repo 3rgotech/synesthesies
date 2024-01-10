@@ -16,6 +16,9 @@ module.exports = {
             boxShadow: {
                 custom: 'rgba(0, 0, 0, 0.24) 0px 3px 8px',
             },
+            colors : {
+                'beige' : '#F5F5DC',
+            },
             fontFamily: {
                 sans: ['Nunito Sans', ...defaultTheme.fontFamily.sans],
             },
@@ -53,8 +56,8 @@ module.exports = {
         },
     },
     plugins: [
-        // require('@tailwindcss/aspect-ratio'),
-        // require('@tailwindcss/forms'),
-        // require('@tailwindcss/typography'),
+        require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/forms'),
+        require('@tailwindcss/typography'),
     ],
 };
