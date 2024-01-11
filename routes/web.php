@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class)->name('home');
+Route::view('qualification', 'qualification')->name('qualification');
 
 Route::view('legal', 'legal')->name('legal');
 Route::view('privacy', 'privacy')->name('privacy');

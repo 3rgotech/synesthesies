@@ -52,4 +52,5 @@
                 {{ __('public.start_test') }}
             </a>
         </div>
+    </div>
 </x-guest-layout>
