@@ -12,6 +12,7 @@ class InformationStep extends StepComponent
     public string $gender;
     public int $birthYear;
     public string $citizenship;
+    public string $liveInFrance;
     public string $region;
     public string $language;
     public ?string $email = null;
@@ -34,13 +35,28 @@ class InformationStep extends StepComponent
     public function rules()
     {
         return [
-            'gender'            => ['string', 'nullable', Rule::enum(Gender::class)],
-            'birthYear'         => ['integer', 'nullable', 'min:1900', 'max:' . date('Y')],
-            'citizenship'       => ['string'],
-            'region'            => ['string', Rule::enum(Region::class)],
-            'language'          => ['required', 'string'],
-            'email'             => ['nullable'],
-            'wantsToBeInformed' => ['boolean', Rule::prohibitedIf(fn () => blank($this->email))],
+            'gender'            => ['required', 'string', Rule::enum(Gender::class)],
+            'birthYear'         => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
+            'citizenship'       => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.citizenship')))],
+            'liveInFrance'      => ['required', 'in:yes,no'],
+            'region'            => ['required_if:liveInFrance,yes', 'string', Rule::enum(Region::class)],
+            'language'          => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.language')))],
+            'email'             => ['nullable', 'email'],
+            'wantsToBeInformed' => ['boolean', Rule::excludeIf(fn () => blank($this->email))],
+        ];
+    }
+
+    public function validationAttributes()
+    {
+        return [
+            'gender'            => __('public.qualification.fields.gender'),
+            'birthYear'         => __('public.qualification.fields.birthYear'),
+            'citizenship'       => __('public.qualification.fields.citizenship'),
+            'liveInFrance'      => 'Pays',
+            'region'            => 'Région',
+            'language'          => __('public.qualification.fields.language'),
+            'email'             => __('public.qualification.fields.email'),
+            'wantsToBeInformed' => 'Tenez-moi informé',
         ];
     }
 

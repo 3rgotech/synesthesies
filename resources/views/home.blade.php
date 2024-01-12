@@ -48,7 +48,7 @@
                 {{ $texts['consent'] }}
             </h3>
             <a class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 font-bold text-lg rounded-l-full rounded-r-full text-white py-2 px-4"
-                href="{{ route('home') }}">
+                href="{{ route('qualification') }}">
                 {{ __('public.start_test') }}
             </a>
         </div>
