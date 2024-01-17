@@ -4,31 +4,41 @@
             <li class="relative md:flex md:flex-1">
                 @if ($step->isPrevious())
                     <button type="button" wire:click="{{ $step->show() }}" class="group flex w-full items-center">
-                        <span class="flex items-center px-6 py-4 text-sm font-medium">
+                        <span class="flex items-center pl-2 pr-4 py-4 text-sm font-medium">
                             <span
                                 class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 group-hover:bg-indigo-800">
-                                <CheckIcon class="h-6 w-6 text-white" aria-hidden="true" />
+                                <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="currentColor"
+                                    aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z"
+                                        clip-rule="evenodd" />
+                                </svg>
                             </span>
-                            <span class="ml-4 text-sm font-medium text-gray-900">{{ $step->label }}</span>
+                            <span class="ml-2 text-sm font-medium text-gray-900">{{ $step->label }}</span>
                         </span>
                     </button>
                 @elseif($step->isCurrent())
-                    <button type="button" class="flex items-center px-6 py-4 text-sm font-medium" aria-current="step">
+                    <button type="button" class="flex items-center pl-2 pr-4 py-4 text-sm font-medium"
+                        aria-current="step">
                         <span
                             class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-indigo-600">
                             <span class="text-indigo-600">{{ $loop->iteration }}</span>
                         </span>
-                        <span class="ml-4 text-sm font-medium text-indigo-600">{{ $step->label }}</span>
+                        <span class="ml-2 text-sm font-medium text-indigo-600">{{ $step->label }}</span>
                     </button>
                 @else
                     <button type="button" class="group flex items-center">
-                        <span class="flex items-center px-6 py-4 text-sm font-medium">
+                        <span @class([
+                            'flex items-center pl-2 py-4 text-sm font-medium',
+                            'pr-2' => $loop->last,
+                            'pr-4' => !$loop->last,
+                        ])>
                             <span
                                 class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300 group-hover:border-gray-400">
                                 <span class="text-gray-500 group-hover:text-gray-900">{{ $loop->iteration }}</span>
                             </span>
                             <span
-                                class="ml-4 text-sm font-medium text-gray-500 group-hover:text-gray-900">{{ $step->label }}</span>
+                                class="ml-2 text-sm font-medium text-gray-500 group-hover:text-gray-900">{{ $step->label }}</span>
                         </span>
                     </button>
                 @endif

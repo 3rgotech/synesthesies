@@ -3,20 +3,17 @@
 namespace App\Http\Livewire\QualificationWizard;
 
 use App\Enum\Disorder;
-use App\Enum\Gender;
-use App\Enum\Region;
 use Illuminate\Validation\Rule;
 use Spatie\LivewireWizard\Components\StepComponent;
 
 class MedicalStep extends StepComponent
 {
-    public array $disorders;
+    public array $disorders = [];
     public string $diagnosis;
 
     public function submit()
     {
-        $this->validate();
-
+        // $this->validate();
         $this->nextStep();
     }
 
@@ -30,9 +27,9 @@ class MedicalStep extends StepComponent
     public function rules()
     {
         return [
-            'disorders'   => ['required', 'array'],
-            'disorders.*' => ['required', 'string', Rule::enum(Disorder::class)],
-            'diagnosis'   => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.diagnosis')))],
+            'disorders'   => ['array'],
+            'disorders.*' => ['string', Rule::enum(Disorder::class)],
+            'diagnosis'   => [Rule::excludeIf(fn () => count($this->disorders) === 0), Rule::in(array_keys(__('public.qualification.values.diagnosis')))],
         ];
     }
 

@@ -9,20 +9,34 @@ return [
 
     'qualification' => [
         'steps' => [
-            'information' => 'Informations',
-            'medical'     => 'Historique médical',
+            'information'   => 'Informations',
+            'medical'       => 'Historique médical',
+            'synesthesies'  => 'Votre synesthésie (1)',
+            'other-details' => 'Votre synesthésie (2)',
+            'misc'          => 'Autres détails',
         ],
         'fields' => [
-            'gender'            => 'Genre',
-            'birthYear'         => 'Année de Naissance',
-            'citizenship'       => 'Nationalité',
-            'liveInFrance'      => 'Habitez-vous en France ?',
-            'region'            => 'Dans quelle région ?',
-            'language'          => 'Langue Maternelle',
-            'email'             => 'Email',
-            'wantsToBeInformed' => 'Tenez-moi informé des résultats de cette recherche et des recherches futures sur cette thématique. (Fréquence estimée d\'un à deux e-mails par an)',
-            'disorder'          => 'Avez-vous déjà eu un diagnostic de trouble neurodévelopppemental ?',
-            'diagnosis'         => 'Est-ce que ce diagnostic a été'
+            'gender'               => 'Genre',
+            'birthYear'            => 'Année de Naissance',
+            'citizenship'          => 'Nationalité',
+            'liveInFrance'         => 'Habitez-vous en France ?',
+            'region'               => 'Dans quelle région ?',
+            'language'             => 'Langue Maternelle',
+            'email'                => 'Email',
+            'wantsToBeInformed'    => 'Tenez-moi informé des résultats de cette recherche et des recherches futures sur cette thématique. (Fréquence estimée d\'un à deux e-mails par an)',
+            'disorder'             => 'Avez-vous déjà eu un diagnostic de trouble neurodévelopppemental ?',
+            'diagnosis'            => 'Est-ce que ce diagnostic a été',
+            'synesthesies_item'    => 'Lorsque vous percevez :perception, quelle est votre expérience synesthétique&nbsp;:',
+            'synesthesies_nothing' => 'Pas d\'expérience synesthétique avec cette perception',
+            'spatialSynesthesies'  => 'Certaines personnes font l\'expérience pour des séquences particulières (chiffres, mois, années, ...) d\'un arrangement spatial spécifique comme ceci',
+            'subtitles'            => 'Certaines personnes, lorsqu\'elles entendent de la parole, voient les mots écrits devant elles (comme des sous-titres). Parfois ces mots peuvent être colorés ou pas.',
+            'alwaysExisted'        => 'Est-ce que vous avez votre synesthésie depuis aussi longtemps que vous vous en souvenez ?',
+            'hasChanged'           => 'Est-ce que vos associations synesthétiques changent parfois ?',
+            'problematic'          => 'Est-ce que votre synesthésie vous gêne parfois ?',
+            'comments'             => 'Est-ce que y aurait d\'autres choses dont vous souhaiteriez nous faire part en lien avec votre synesthésie ?',
+
+            'isItTheCase'          => 'Est-ce que c\'est le cas pour vous ?',
+            'ifYesExplain'         => 'Si oui, expliquez',
         ],
         'values' => [
             'citizenship' => [
@@ -37,6 +51,27 @@ return [
                 'doctor' => 'Effectué par un professionnel (médecin, psychologue)',
                 'self'   => 'C\'est un autodiagnostic qui n\'a pas été confirmé par un professionnel',
             ],
+            'perception' => [
+                'letter'       => 'les lettres de l\'alphabet',
+                'french_word'  => 'un mot écrit en français',
+                'foreign_word' => 'un mot écrit en langue étrangère',
+                'digit'        => 'des chiffres',
+                'day_of_week'  => 'des jours de la semaine',
+                'music'        => 'de la musique',
+                'human_voice'  => 'des voix humaines',
+                'sound'        => 'des bruits',
+            ],
+            'spatial' => [
+                'digit' => 'Chiffre',
+                'month' => 'Mois',
+                'year'  => 'Année',
+                'other' => 'Autre(s)',
+            ],
+            'boolean' => [
+                'yes'     => 'Oui',
+                'no'      => 'Non',
+                'unknown' => 'Ne sait pas',
+            ]
         ],
         'help' => [
             'email' => 'Vous permettra de retrouver vos réponses ainsi que les résultats à vos tests. (Ce mail sera uniquement utilisé dans le cadre de ce protocole de recherche)',

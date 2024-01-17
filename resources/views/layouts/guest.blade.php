@@ -20,7 +20,7 @@
 
 <body class="font-sans text-gray-900 antialiased w-screen min-h-screen bg-beige">
     <div class="fixed inset-x-0 z-max bg-beige">
-        <nav class="flex items-center justify-center md:justify-between flex-wrap p-3 md:px-0 container mx-auto">
+        <nav class="flex items-center justify-center md:justify-between flex-wrap p-3 lg:px-0 container mx-auto">
             <div class="flex items-center">
                 <a href="{{ route('home') }}"
                     class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 font-bold text-lg">

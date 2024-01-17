@@ -20,26 +20,24 @@
                 <p class="mt-2 text-sm text-red-600" id="disorders-error">{{ $message }}</p>
             @enderror
         </div>
-        <div class="sm:col-span-6" x-bind:class="disorders.length == 0 && 'hidden'">
-            <label for="region" class="block text-sm font-medium leading-6 text-gray-900">
+        <div class="sm:col-span-6"{{--  x-bind:class="disorders.length == 0 && 'hidden'" --}}>
+            <label for="" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ __('public.qualification.fields.diagnosis') }}
                 <span class="font-bold text-red-700">*</span>
             </label>
-            <div class="relative mt-2 pl-2 sm:pl-0">
-                @foreach (__('public.qualification.values.diagnosis') as $value => $label)
-                    <div class="relative flex items-start">
-                        <div class="flex h-6 items-center">
-                            <input id="diagnosis-{{ $value }}" value="{{ $value }}" name="diagnosis"
-                                wire:model="diagnosis" type="radio"
-                                class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                        </div>
-                        <div class="ml-3 text-sm leading-6">
-                            <label for="diagnosis-{{ $value }}"
-                                class="font-medium text-gray-700">{{ $label }}</label>
-                        </div>
+            @foreach (__('public.qualification.values.diagnosis') as $value => $label)
+                <div class="relative mt-2 pl-2 flex items-start">
+                    <div class="flex h-6 items-center">
+                        <input id="diagnosis-{{ $value }}" value="{{ $value }}" name="diagnosis"
+                            wire:model="diagnosis" type="radio"
+                            class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
                     </div>
-                @endforeach
-            </div>
+                    <div class="ml-3 text-sm leading-6">
+                        <label for="diagnosis-{{ $value }}"
+                            class="font-medium text-gray-700">{{ $label }}</label>
+                    </div>
+                </div>
+            @endforeach
             @error('diagnosis')
                 <p class="mt-2 text-sm text-red-600" id="diagnosis-error">{{ $message }}</p>
             @enderror

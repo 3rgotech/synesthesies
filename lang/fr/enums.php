@@ -30,5 +30,24 @@ return [
         'language'     => 'Trouble développemental du langage oral',
         'intellectual' => 'Retard intellectuel',
         'gifted'       => 'Haut potentiel intellectuel',
+    ],
+    'perception' => [
+        'letter'       => 'Lettre',
+        'french_word'  => 'Mot français',
+        'foreign_word' => 'Mot étranger',
+        'digit'        => 'Chiffre',
+        'day_of_week'  => 'Jour de la semaine',
+        'music'        => 'Musique',
+        'human_voice'  => 'Voix humaine',
+        'sound'        => 'Bruit',
+    ],
+    'response' => [
+        'color' => 'Couleur',
+        'taste' => 'Goût',
+        'music' => 'Musique',
+        'shape' => 'Forme',
+        'scent' => 'Odeur',
+        'pain'  => 'Douleur',
+        'touch' => 'Toucher',
     ]
 ];

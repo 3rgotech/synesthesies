@@ -28,7 +28,9 @@ class Subject extends Model
         'diagnosis',
         'always_existed',
         'has_changed',
+        'has_changed_details',
         'problematic',
+        'problematic_details',
         'comments',
     ];
 
