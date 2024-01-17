@@ -20,5 +20,15 @@ return [
         'f' => 'Femme',
         'm' => 'Homme',
         'o' => 'Autre / Non déterminé'
+    ],
+    'disorder' => [
+        'autism'       => 'Trouble du spectre de l\'autisme',
+        'attention'    => 'Trouble de l\'attention avec ou sans hyperactivité',
+        'dyslexia'     => 'Dyslexie',
+        'dyscalculia'  => 'Dyscalculie',
+        'motor'        => 'Trouble de coordination motrice',
+        'language'     => 'Trouble développemental du langage oral',
+        'intellectual' => 'Retard intellectuel',
+        'gifted'       => 'Haut potentiel intellectuel',
     ]
 ];

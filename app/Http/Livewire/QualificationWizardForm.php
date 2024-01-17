@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Http\Livewire\QualificationWizard\InformationStep;
+use App\Http\Livewire\QualificationWizard\MedicalStep;
 use Spatie\LivewireWizard\Components\WizardComponent;
 
 class QualificationWizardForm extends WizardComponent
@@ -11,6 +12,7 @@ class QualificationWizardForm extends WizardComponent
     {
         return [
             InformationStep::class,
+            MedicalStep::class,
         ];
     }
 }

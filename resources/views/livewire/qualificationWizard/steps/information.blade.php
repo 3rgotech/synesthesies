@@ -71,7 +71,7 @@
                             </div>
                             <div class="ml-3 text-sm leading-6">
                                 <label for="citizenship-{{ $value }}"
-                                    class="font-medium text-gray-900">{{ $label }}</label>
+                                    class="font-medium text-gray-700">{{ $label }}</label>
                             </div>
                         </div>
                     @endforeach
@@ -97,7 +97,7 @@
                             </div>
                             <div class="ml-3 text-sm leading-6">
                                 <label for="language-{{ $value }}"
-                                    class="font-medium text-gray-900">{{ $label }}</label>
+                                    class="font-medium text-gray-700">{{ $label }}</label>
                             </div>
                         </div>
                     @endforeach
@@ -124,7 +124,7 @@
                             </div>
                             <div class="ml-3 text-sm leading-6">
                                 <label for="liveInFrance-{{ $value }}"
-                                    class="font-medium text-gray-900">{{ __(ucfirst($value)) }}</label>
+                                    class="font-medium text-gray-700">{{ __(ucfirst($value)) }}</label>
                             </div>
                         </div>
                     @endforeach
@@ -166,6 +166,7 @@
         <div class="sm:col-span-6">
             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ __('public.qualification.fields.email') }}
+                <span class="font-bold text-red-700">*</span>
             </label>
             <div class="relative mt-2 pl-2 sm:pl-0">
                 <input type="email" name="email" id="email" wire:model="email"
@@ -187,7 +188,7 @@
                 <p class="mt-2 text-sm text-red-600" id="email-error">{{ $message }}</p>
             @enderror
         </div>
-        <div class="sm:col-span-6" x-bind:class="(email === null || email === '') && 'hidden'">
+        <div class="sm:col-span-6">
             <div class="relative flex items-center">
                 <input id="wantsToBeInformed" value="{{ $value }}" name="wantsToBeInformed"
                     wire:model="wantsToBeInformed" type="checkbox"
