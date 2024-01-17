@@ -19,6 +19,7 @@ enum Region: string implements HasLabel
     case OCCITANIE                   = 'occitanie';
     case PAYS_DE_LA_LOIRE            = 'pays-de-la-loire';
     case PROVENCE_ALPES_COTE_D_AZURE = 'provence-alpes-cote-d-azur';
+    // TODO : Add DOM-TOM
 
     public function getLabel(): string
     {

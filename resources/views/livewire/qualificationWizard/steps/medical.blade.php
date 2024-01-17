@@ -20,7 +20,7 @@
                 <p class="mt-2 text-sm text-red-600" id="disorders-error">{{ $message }}</p>
             @enderror
         </div>
-        <div class="sm:col-span-6"{{--  x-bind:class="disorders.length == 0 && 'hidden'" --}}>
+        <div class="sm:col-span-6" x-bind:class="disorders.length == 0 && 'hidden'">
             <label for="" class="block text-sm font-medium leading-6 text-gray-900">
                 {{ __('public.qualification.fields.diagnosis') }}
                 <span class="font-bold text-red-700">*</span>

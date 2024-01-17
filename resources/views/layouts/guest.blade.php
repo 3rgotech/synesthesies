@@ -18,8 +18,8 @@
 
 </head>
 
-<body class="font-sans text-gray-900 antialiased w-screen min-h-screen bg-beige">
-    <div class="fixed inset-x-0 z-max bg-beige">
+<body class="font-sans text-gray-900 antialiased w-screen min-h-screen bg-slate-100">
+    <div class="fixed inset-x-0 z-max bg-slate-100">
         <nav class="flex items-center justify-center md:justify-between flex-wrap p-3 lg:px-0 container mx-auto">
             <div class="flex items-center">
                 <a href="{{ route('home') }}"
