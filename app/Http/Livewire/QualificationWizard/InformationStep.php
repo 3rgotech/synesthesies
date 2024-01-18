@@ -20,7 +20,7 @@ class InformationStep extends StepComponent
 
     public function submit()
     {
-        // $this->validate();
+        $this->validate();
         $this->nextStep();
     }
 
@@ -38,7 +38,7 @@ class InformationStep extends StepComponent
             'birthYear'         => ['required', 'integer', 'min:1900', 'max:' . date('Y')],
             'citizenship'       => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.citizenship')))],
             'liveInFrance'      => ['required', 'in:yes,no'],
-            'region'            => ['required_if:liveInFrance,yes', 'string', Rule::enum(Region::class)],
+            'region'            => ['required_if:liveInFrance,yes', 'nullable', 'string', Rule::enum(Region::class)],
             'language'          => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.language')))],
             'email'             => ['required', 'email', 'unique:subjects,email'],
             'wantsToBeInformed' => ['boolean', Rule::excludeIf(fn () => blank($this->email))],

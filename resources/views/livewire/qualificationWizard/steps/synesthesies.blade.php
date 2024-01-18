@@ -4,7 +4,7 @@
     <div class="w-full mx-auto mt-4 sm:mt-6 grid max-w-2xl grid-cols-1 gap-x-6 gap-y-4 sm:gap-y-6 sm:grid-cols-6"
         x-data="syn">
         @foreach (\App\Enum\Perception::cases() as $perception)
-            <div class="sm:col-span-6">
+            <div class="sm:col-span-6" wire:key="perception-{{ $perception }}">
                 <label for="" class="block text-sm font-medium leading-6 text-gray-900">
                     {!! __('public.qualification.fields.synesthesies_item', [
                         'perception' => '<u>' . __('public.qualification.values.perception.' . $perception->value) . '</u>',
@@ -31,11 +31,11 @@
                             class="pl-3 text-sm leading-6 font-medium text-gray-700">{{ __('public.qualification.fields.synesthesies_nothing') }}</label>
                     </div>
                 </div>
-                @error('disorders')
-                    <p class="mt-2 text-sm text-red-600" id="disorders-error">{{ $message }}</p>
-                @enderror
             </div>
         @endforeach
+        @error('synesthesies')
+            <p class="sm:col-span-6 mt-2 text-sm text-red-600" id="synesthesies-error">{{ $message }}</p>
+        @enderror
     </div>
 
     <div class="mt-6 flex items-center justify-end gap-x-6">

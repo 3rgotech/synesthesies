@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Enum\Disorder;
 use App\Enum\Perception;
 use App\Http\Livewire\QualificationWizard\InformationStep;
 use App\Http\Livewire\QualificationWizard\MedicalStep;
@@ -27,8 +28,11 @@ class QualificationWizardForm extends WizardComponent
     {
         return [
             'synesthesies-step' => [
-                'synesthesies' => collect(Perception::cases())->mapWithKeys(fn (Perception $perception) => [$perception->value => []])->toArray()
+                'synesthesies' => collect(Perception::cases())->mapWithKeys(fn (Perception $perception) => [$perception->value => ['none']])->toArray()
             ],
+            'other-details-step' => [
+                'spatialSynesthesies' => [],
+            ]
         ];
     }
 }

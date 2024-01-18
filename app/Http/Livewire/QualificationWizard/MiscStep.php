@@ -16,8 +16,9 @@ class MiscStep extends StepComponent
 
     public function submit()
     {
-        // $this->validate();
-        $this->nextStep();
+        $this->validate();
+
+        ray($this->state()->all());
     }
 
     public function stepInfo(): array
@@ -32,9 +33,9 @@ class MiscStep extends StepComponent
         return [
             'alwaysExisted'      => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.boolean')))],
             'hasChanged'         => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.boolean')))],
-            'hasChangedDetails'  => ['required_if:hasChanged,yes', 'string'],
+            'hasChangedDetails'  => ['required_if:hasChanged,yes', 'nullable', 'string'],
             'problematic'        => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.boolean')))],
-            'problematicDetails' => ['required_if:hasChanged,yes', 'string'],
+            'problematicDetails' => ['required_if:problematic,yes', 'nullable', 'string'],
             'comments'           => ['nullable', 'string'],
         ];
     }

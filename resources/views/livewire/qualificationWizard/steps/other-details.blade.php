@@ -32,7 +32,7 @@
                     <div x-show="spatial === 'yes'" class="inline-flex items-center">
                         <div class="inline-flex items-center ml-2">
                             <input id="spatialSynesthesies-{{ $value }}" value="{{ $value }}"
-                                name="spatialSynesthesies" wire:model="spatialSynesthesies" type="checkbox"
+                                name="spatialSynesthesies" x-model="spatialSynesthesies" type="checkbox"
                                 class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
                         </div>
                         <div class="ml-3 text-sm leading-6">
@@ -42,6 +42,9 @@
                     </div>
                 @endforeach
             </div>
+            @error('spatial')
+                <p class="mt-2 text-sm text-red-600" id="spatial-error">{{ $message }}</p>
+            @enderror
             @error('spatialSynesthesies')
                 <p class="mt-2 text-sm text-red-600" id="spatialSynesthesies-error">{{ $message }}</p>
             @enderror
@@ -85,7 +88,15 @@
     @script
         <script>
             Alpine.data('otherDetails', () => ({
-                spatial: null,
+                spatial: @entangle('spatial'),
+                spatialSynesthesies: @entangle('spatialSynesthesies'),
+                init: function() {
+                    this.$watch('spatial', (value) => {
+                        if (value === 'no') {
+                            this.spatialSynesthesies = [];
+                        }
+                    })
+                }
             }))
         </script>
     @endscript
