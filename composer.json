@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "cesargb/laravel-magiclink": "^2.18",
         "filament/filament": "^3.1",
         "filament/spatie-laravel-settings-plugin": "^3.1",
         "guzzlehttp/guzzle": "^7.2",
