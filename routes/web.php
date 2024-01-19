@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TestListController;
+use App\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', HomeController::class)->name('home');
 Route::view('qualification', 'qualification')->name('qualification');
+Route::get('login', Login::class)->name('login');
 
 Route::middleware('auth:subjects')->group(function () {
     Route::get('test-list', TestListController::class)->name('test-list');
