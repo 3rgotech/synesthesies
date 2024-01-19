@@ -9,7 +9,7 @@ class OtherDetailsStep extends StepComponent
 {
     public string $spatial;
     public array $spatialSynesthesies;
-    public bool $subtitles;
+    public ?string $subtitles;
 
     public function submit()
     {

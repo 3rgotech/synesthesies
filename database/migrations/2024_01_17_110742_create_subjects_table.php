@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
             $table->string('email');
+            $table->rememberToken();
             $table->string('gender');
             $table->unsignedSmallInteger('birth_year');
             $table->string('citizenship');
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->boolean('keep_informed')->default(false);
             $table->json('disorders');
             $table->string('diagnosis');
+            $table->json('synesthesies');
+            $table->json('spatial_synesthesies');
+            $table->boolean('subtitles');
             $table->boolean('always_existed')->nullable();
             $table->boolean('has_changed')->nullable();
             $table->string('has_changed_details')->nullable();

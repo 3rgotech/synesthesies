@@ -3,9 +3,11 @@
 return [
     'home'       => 'Accueil',
     'login'      => 'Déjà venu ?',
+    'logout'     => 'Déconnexion',
     'legal'      => 'Mentions Légales',
     'privacy'    => 'Politique de Confidentialité',
     'start_test' => 'Commencer le test',
+    'test_list'  => 'Liste des tests',
 
     'qualification' => [
         'steps' => [

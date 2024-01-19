@@ -2,6 +2,11 @@
 
 namespace App\Http\Livewire\QualificationWizard;
 
+use App\Enum\Disorder;
+use App\Enum\Perception;
+use App\Enum\Region;
+use App\Models\Subject;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Spatie\LivewireWizard\Components\StepComponent;
 
@@ -18,7 +23,42 @@ class MiscStep extends StepComponent
     {
         $this->validate();
 
-        ray($this->state()->all());
+        $state = $this->state()->all();
+
+        $disorders = collect($state['medical-step']['disorders'])
+            ->map(fn ($d) => Disorder::tryFrom($d))
+            ->filter(fn ($d) => filled($d))
+            ->all();
+        $synesthesies = collect($state['synesthesies-step']['synesthesies'])
+            ->map(fn ($responses) => array_filter($responses, fn ($response) => filled($response) && $response !== 'none'))
+            ->filter(fn ($responses) => count($responses) > 0)
+            ->all();
+
+        // Save form data
+        $subject = Subject::create([
+            'email'                => $state['information-step']['email'],
+            'gender'               => $state['information-step']['gender'],
+            'birth_year'           => $state['information-step']['birthYear'],
+            'citizenship'          => $state['information-step']['citizenship'],
+            'region'               => $state['information-step']['citizenship'] === 'french' ? Region::tryFrom($state['information-step']['region']) : null,
+            'language'             => $state['information-step']['language'],
+            'keep_informed'        => $state['information-step']['wantsToBeInformed'],
+            'disorders'            => $disorders,
+            'diagnosis'            => $state['medical-step']['diagnosis'],
+            'synesthesies'         => $synesthesies,
+            'spatial_synesthesies' => $state['other-details-step']['spatial'] === 'yes' ? $state['other-details-step']['spatialSynesthesies'] : [],
+            'subtitles'            => $state['other-details-step']['subtitles'] === 'yes',
+            'always_existed'       => $state['misc-step']['alwaysExisted'] === 'yes',
+            'has_changed'          => $state['misc-step']['hasChanged'] === 'yes',
+            'has_changed_details'  => $state['misc-step']['hasChanged'] === 'yes' ? $state['misc-step']['hasChangedDetails'] : '',
+            'problematic'          => $state['misc-step']['problematic'] === 'yes',
+            'problematic_details'  => $state['misc-step']['problematic'] === 'yes' ? $state['misc-step']['problematicDetails'] : '',
+            'comments'             => $state['misc-step']['comments'] ?? '',
+        ]);
+
+        // Login and redirect
+        Auth::guard('subjects')->login($subject, true);
+        return $this->redirectRoute('test-list');
     }
 
     public function stepInfo(): array

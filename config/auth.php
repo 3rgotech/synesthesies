@@ -37,9 +37,14 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver'   => 'session',
             'provider' => 'users',
         ],
+        'subjects' => [
+            'driver'   => 'session',
+            'provider' => 'subjects',
+            'remember' => now()->addDays(7)->diffInMinutes()
+        ]
     ],
 
     /*
@@ -63,6 +68,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'subjects' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Subject::class,
         ],
 
         // 'users' => [
