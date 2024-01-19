@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\QualificationWizard;
 
 use App\Enum\Disorder;
+use App\Enum\Gender;
 use App\Enum\Perception;
 use App\Enum\Region;
 use App\Models\Subject;
@@ -37,10 +38,10 @@ class MiscStep extends StepComponent
         // Save form data
         $subject = Subject::create([
             'email'                => $state['information-step']['email'],
-            'gender'               => $state['information-step']['gender'],
+            'gender'               => Gender::tryFrom($state['information-step']['gender']),
             'birth_year'           => $state['information-step']['birthYear'],
             'citizenship'          => $state['information-step']['citizenship'],
-            'region'               => $state['information-step']['citizenship'] === 'french' ? Region::tryFrom($state['information-step']['region']) : null,
+            'region'               => $state['information-step']['liveInFrance'] === 'yes' ? Region::tryFrom($state['information-step']['region']) : null,
             'language'             => $state['information-step']['language'],
             'keep_informed'        => $state['information-step']['wantsToBeInformed'],
             'disorders'            => $disorders,

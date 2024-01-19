@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enum\Disorder;
+use App\Enum\Gender;
+use App\Enum\Region;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,6 +47,8 @@ class Subject extends Model implements Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
+        'gender'               => Gender::class,
+        'region'               => Region::class,
         'keep_informed'        => 'boolean',
         'disorders'            => AsEnumCollection::class . ':' . Disorder::class,
         'synesthesies'         => 'array',

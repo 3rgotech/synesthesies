@@ -15,7 +15,9 @@ class ManageTextContent extends SettingsPage
 {
     protected static ?string $navigationIcon = 'fas-file-lines';
 
-    protected static string $settings = TextContentSettings::class;
+    protected static string $settings         = TextContentSettings::class;
+    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?int $navigationSort     = 2;
 
     public function form(Form $form): Form
     {
