@@ -23,7 +23,7 @@
         <nav class="flex items-center justify-center md:justify-between flex-wrap p-3 lg:px-0 container mx-auto">
             <div class="flex items-center">
                 <a href="{{ route('home') }}"
-                    class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500 font-bold text-lg">
+                    class="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-700 font-bold text-lg">
                     {{ config('app.name') }}
                 </a>
             </div>
@@ -38,7 +38,7 @@
                         </li>
                     @endunless
                     <li class="md:mr-3">
-                        <a class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
+                        <a class="inline-block bg-gradient-to-r from-blue-700 to-purple-700 font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
                             href="{{ route('logout') }}">
                             {{ __('public.logout') }}
                         </a>

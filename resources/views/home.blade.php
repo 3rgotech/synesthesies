@@ -2,7 +2,7 @@
     <div
         class="relative container mx-auto h-screen flex flex-col justify-center items-center lg:w-1/2 space-y-6 md:space-y-16">
         <h1 class="text-3xl md:text-7xl">
-            <strong class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">
+            <strong class="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-700">
                 {{ config('app.name') }}
             </strong>
         </h1>
@@ -38,7 +38,7 @@
                 </strong>
             </h2>
             <div
-                class="text-base !w-full prose max-w-none prose-headings:text-gray-900 prose-a:text-blue-500 prose-strong:text-gray-900 text-justify px-2">
+                class="text-base !w-full prose max-w-none prose-headings:text-blue-500 prose-headings:text-center prose-headings:text-lg prose-headings:md:text-3xl prose-a:text-blue-500 prose-strong:text-gray-900 text-justify px-2">
                 {!! $block['text'] !!}
             </div>
         @endforeach
@@ -47,7 +47,7 @@
             <h3 class="flex-1 text-base md:text-xl text-blue-500 font-bold text-justify">
                 {{ $texts['consent'] }}
             </h3>
-            <a class="inline-block bg-gradient-to-r from-blue-500 to-purple-500 font-bold text-lg rounded-l-full rounded-r-full text-white py-2 px-4"
+            <a class="inline-block bg-gradient-to-r from-blue-700 to-purple-700 font-bold text-lg rounded-l-full rounded-r-full text-white py-2 px-4"
                 href="{{ route('qualification') }}">
                 {{ __('public.start_test') }}
             </a>
