@@ -23,4 +23,17 @@ enum Response: string implements HasLabel
     {
         return collect(self::cases())->map(fn (self $item) => $item->value)->all();
     }
+
+    public function getIcon(): string
+    {
+        return match ($this) {
+            self::COLOR => 'fas-palette',
+            self::TASTE => 'fas-lemon',
+            self::MUSIC => 'fas-music',
+            self::SHAPE => 'fas-shapes',
+            self::SCENT => 'fas-spray-can-sparkles',
+            self::PAIN => 'fas-kit-medical',
+            self::TOUCH => 'fas-fingerprint',
+        };
+    }
 }

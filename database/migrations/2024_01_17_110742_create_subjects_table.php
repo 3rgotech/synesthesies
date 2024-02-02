@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('language');
             $table->boolean('keep_informed')->default(false);
             $table->json('disorders');
+            $table->text('other_disorders');
             $table->string('diagnosis');
             $table->json('synesthesies');
             $table->json('spatial_synesthesies');

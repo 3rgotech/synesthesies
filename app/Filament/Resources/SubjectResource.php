@@ -85,6 +85,13 @@ class SubjectResource extends Resource
                         Forms\Components\Radio::make('diagnosis')
                             ->required()
                             ->options(__('public.qualification.values.diagnosis')),
+                        Forms\Components\Textarea::make('other_disorders')
+                            ->label('Autres troubles')
+                            ->nullable()
+                            ->default('')
+                            ->placeholder('')
+                            ->maxLength(65535)
+                            ->columnSpanFull(),
                     ]),
                 Section::make('Synesthésies')
                     ->columns(2)

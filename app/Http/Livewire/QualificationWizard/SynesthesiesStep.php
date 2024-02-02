@@ -11,6 +11,7 @@ use Spatie\LivewireWizard\Components\StepComponent;
 class SynesthesiesStep extends StepComponent
 {
     public array $synesthesies;
+    public array $perceptions;
 
     public function submit()
     {
@@ -27,11 +28,11 @@ class SynesthesiesStep extends StepComponent
 
     public function rules()
     {
-        $keys = collect(Perception::cases())->map(fn (Perception $perception) => $perception->value);
+        $this->perceptions = collect(Perception::cases())->map(fn (Perception $perception) => $perception->value);
         return [
-            'synesthesies' => ['array', function ($attribute, $value, $fail) use ($keys) {
-                foreach ($keys as $key) {
-                    if (!array_key_exists($key, $value) || !is_array($value[$key]) || count($value[$key]) === 0) {
+            'synesthesies' => ['array', function ($attribute, $value, $fail) {
+                foreach ($this->perceptions as $perception) {
+                    if (!array_key_exists($perception, $value) || !is_array($value[$perception]) || count($value[$perception]) === 0) {
                         $fail("Vous devez sélectionner au minimum une réponse par question");
                     }
                 }

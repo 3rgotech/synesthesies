@@ -30,6 +30,7 @@ class Subject extends Model implements Authenticatable
         'keep_informed',
         'disorders',
         'diagnosis',
+        'other_disorders',
         'synesthesies',
         'spatial_synesthesies',
         'subtitles',
