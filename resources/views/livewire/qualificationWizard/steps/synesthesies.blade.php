@@ -22,13 +22,14 @@
                         @foreach (['yes', 'no'] as $value)
                             <div class="relative flex items-center">
                                 <div class="flex h-6 items-center">
-                                    <input id="perception-{{ $value }}" name="perception"
+                                    <input id="perception-{{ $perception->value }}-{{ $value }}"
+                                        name="-{{ $perception->value }}"
                                         x-model="synesthesies_bool.{{ $perception->value }}" type="radio"
                                         value="{{ $value }}"
                                         class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
                                 </div>
                                 <div class="ml-3 text-sm leading-6">
-                                    <label for="perception-{{ $value }}"
+                                    <label for="perception-{{ $perception->value }}-{{ $value }}"
                                         class="font-medium text-gray-700">{{ __(ucfirst($value)) }}</label>
                                 </div>
                             </div>
@@ -71,6 +72,7 @@
                 synesthesies_bool: {},
                 init() {
                     this.perceptions.forEach(p => this.synesthesies_bool[p] = 'no');
+                    console.log(JSON.stringify(this.synesthesies_bool));
                     /* this.$watch('synesthesies', (newValue, oldValue) => {
                         const newSynesthesies = {};
                         let changed = false;

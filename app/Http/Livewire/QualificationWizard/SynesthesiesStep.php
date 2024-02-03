@@ -28,7 +28,6 @@ class SynesthesiesStep extends StepComponent
 
     public function rules()
     {
-        $this->perceptions = collect(Perception::cases())->map(fn (Perception $perception) => $perception->value);
         return [
             'synesthesies' => ['array', function ($attribute, $value, $fail) {
                 foreach ($this->perceptions as $perception) {

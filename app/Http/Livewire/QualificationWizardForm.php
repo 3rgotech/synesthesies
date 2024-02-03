@@ -28,6 +28,7 @@ class QualificationWizardForm extends WizardComponent
     {
         return [
             'synesthesies-step' => [
+                'perceptions'  => collect(Perception::cases())->map(fn (Perception $perception) => $perception->value)->toArray(),
                 'synesthesies' => collect(Perception::cases())->mapWithKeys(fn (Perception $perception) => [$perception->value => ['none']])->toArray()
             ],
             'other-details-step' => [

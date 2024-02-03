@@ -43,8 +43,8 @@
             </div>
         @endforeach
         <div
-            class="w-full flex flex-col md:flex-row items-center border-t border-b border-blue-500 py-8 px-8 md:px-16 lg:px-32 space-y-8 md:space-y-0 md:space-x-32">
-            <h3 class="flex-1 text-base md:text-xl text-blue-500 font-bold text-justify">
+            class="w-full flex flex-col lg:flex-row items-center border-t border-b border-blue-500 py-8 px-8 lg:px-16 xl:px-32 space-y-8 lg:space-y-0 lg:space-x-32">
+            <h3 class="flex-1 text-base lg:text-xl text-blue-500 font-bold text-justify">
                 {{ $texts['consent'] }}
             </h3>
             <a class="inline-block bg-gradient-to-r from-blue-700 to-purple-700 font-bold text-lg rounded-l-full rounded-r-full text-white py-2 px-4"

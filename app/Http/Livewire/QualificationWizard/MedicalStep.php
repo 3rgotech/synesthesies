@@ -10,6 +10,7 @@ class MedicalStep extends StepComponent
 {
     public array $disorders = [];
     public string $diagnosis;
+    public string $otherDisorders;
 
     public function submit()
     {
