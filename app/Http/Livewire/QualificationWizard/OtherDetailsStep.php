@@ -30,7 +30,7 @@ class OtherDetailsStep extends StepComponent
             'spatial'               => ['required', 'string', 'in:yes,no'],
             'spatialSynesthesies'   => ['array', 'required_if:spatial,yes'],
             'spatialSynesthesies.*' => ['required', 'string', 'in:digit,month,year,other'],
-            'subtitles'             => ['required', 'boolean'],
+            'subtitles'             => ['required', 'string', 'in:yes,no'],
         ];
     }
 

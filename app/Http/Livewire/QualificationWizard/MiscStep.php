@@ -46,7 +46,7 @@ class MiscStep extends StepComponent
             'keep_informed'        => $state['information-step']['wantsToBeInformed'],
             'disorders'            => $disorders,
             'diagnosis'            => $state['medical-step']['diagnosis'],
-            'other_disorders'      => $state['medical-step']['otherDisorders'],
+            'other_disorders'      => $state['medical-step']['otherDisorders'] ?? '',
             'synesthesies'         => $synesthesies,
             'spatial_synesthesies' => $state['other-details-step']['spatial'] === 'yes' ? $state['other-details-step']['spatialSynesthesies'] : [],
             'subtitles'            => $state['other-details-step']['subtitles'] === 'yes',
