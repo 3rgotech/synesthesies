@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Mail\LoginLink;
 use App\Models\Subject;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Livewire\Attributes\Layout;
@@ -30,6 +31,10 @@ class Login extends Component
         if (blank($subject)) {
             $this->error = 'Cette adresse email n\'existe pas dans notre base de données de participants.';
         } else {
+            if (App::isLocal()) {
+                Auth::guard('subjects')->login($subject);
+                return $this->redirectRoute('test-list');
+            }
             $action = new LoginAction($subject);
             $action->guard('subjects');
             $action->remember();

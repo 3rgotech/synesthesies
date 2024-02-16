@@ -31,7 +31,7 @@ class MiscStep extends StepComponent
             ->filter(fn ($d) => filled($d))
             ->all();
         $synesthesies = collect($state['synesthesies-step']['synesthesies'])
-            ->map(fn ($responses) => array_filter($responses, fn ($response) => filled($response) && $response !== 'none'))
+            ->map(fn ($responses) => array_unique(array_filter($responses, fn ($response) => filled($response) && $response !== 'none')))
             ->filter(fn ($responses) => count($responses) > 0)
             ->all();
 

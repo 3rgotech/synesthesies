@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Hash;
 
 class Subject extends Model implements Authenticatable
@@ -59,6 +60,11 @@ class Subject extends Model implements Authenticatable
         'has_changed'          => 'boolean',
         'problematic'          => 'boolean',
     ];
+
+    public function testData(): HasMany
+    {
+        return $this->hasMany(SubjectTestData::class, 'subject_id', 'id');
+    }
 
     /**
      * Get the name of the unique identifier for the user.
