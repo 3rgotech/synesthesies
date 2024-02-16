@@ -2,13 +2,11 @@
 
 namespace App\Models;
 
-use App\Enum\Perception;
-use App\Enum\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class SubjectTestData extends Model
+class SubjectTest extends Model
 {
     use HasFactory;
 
@@ -19,8 +17,7 @@ class SubjectTestData extends Model
      */
     protected $fillable = [
         'subject_id',
-        'perception',
-        'response',
+        'test_id',
         'data'
     ];
 
@@ -30,13 +27,16 @@ class SubjectTestData extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'perception'     => Perception::class,
-        'response'       => Response::class,
-        'data'           => 'array',
+        'data' => 'array',
     ];
 
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
+    }
+
+    public function test(): BelongsTo
+    {
+        return $this->belongsTo(Test::class);
     }
 }

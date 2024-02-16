@@ -80,4 +80,15 @@ return [
             'email' => 'Vous permettra de retrouver vos réponses ainsi que les résultats à vos tests. (Ce mail sera uniquement utilisé dans le cadre de ce protocole de recherche)',
         ]
     ],
+
+    'test' => [
+        'duration'        => 'Durée estimée :',
+        'check_result'    => 'Consulter mon résultat',
+        'perform_test'    => 'Faire le test',
+        'unsupported'     => 'Ce type de test n\'est pas supporté pour le moment. Veuillez nous contacter pour plus d\'informations.',
+        'distinct_colors' => 'Couleurs distinctes',
+        'next'            => 'Suivant',
+        'final_score'     => 'Score final :',
+        'back_to_list'    => 'Retour à la liste des tests',
+    ]
 ];

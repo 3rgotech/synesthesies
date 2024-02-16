@@ -9,8 +9,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Pridi:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css'])
@@ -20,15 +25,16 @@
 
 <body class="font-sans text-gray-900 antialiased w-screen min-h-screen bg-slate-100">
     <div class="fixed inset-x-0 z-max bg-slate-100">
-        <nav class="flex items-center justify-center md:justify-between flex-wrap p-3 lg:px-0 container mx-auto">
-            <div class="flex items-center">
+        <nav
+            class="flex flex-col md:flex-row items-stretch md:items-center justify-center md:justify-between flex-wrap p-3 lg:px-0 container mx-auto">
+            <div class="flex justify-center items-center">
                 <a href="{{ route('home') }}"
                     class="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 to-purple-700 font-bold text-lg">
                     {{ config('app.name') }}
                 </a>
             </div>
             <div class="flex-grow flex items-center w-auto text-center shadow-3xl">
-                <ul class="flex justify-end flex-1 items-center">
+                <ul class="flex justify-between md:justify-end flex-1 items-center">
                     @unless (Route::current()->getName() === 'home')
                         <li class="md:mr-3">
                             <a class="inline-block text-gray-500 no-underline hover:text-indigo-700 py-2 px-4"

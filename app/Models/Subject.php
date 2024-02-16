@@ -63,7 +63,7 @@ class Subject extends Model implements Authenticatable
 
     public function testData(): HasMany
     {
-        return $this->hasMany(SubjectTestData::class, 'subject_id', 'id');
+        return $this->hasMany(SubjectTest::class, 'subject_id', 'id');
     }
 
     /**

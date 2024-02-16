@@ -12,6 +12,7 @@
         "cesargb/laravel-magiclink": "^2.18",
         "filament/filament": "^3.1",
         "filament/spatie-laravel-settings-plugin": "^3.1",
+        "guava/filament-icon-picker": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",

@@ -21,6 +21,7 @@ module.exports = {
             },
             fontFamily: {
                 sans: ['Nunito Sans', ...defaultTheme.fontFamily.sans],
+                display: ['Pridi']
             },
             fontSize: {
                 xxs: '0.625rem',
