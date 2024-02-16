@@ -38,12 +38,21 @@
                         </li>
                     @endunless
                     @unless (Route::current()->getName() === 'login')
-                        <li class="md:mr-3">
-                            <a class="inline-block bg-gradient-to-r from-blue-700 to-purple-700 font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
-                                href="{{ route('login') }}">
-                                {{ __('public.login') }}
-                            </a>
-                        </li>
+                        @if (Auth::guard('subjects')->check())
+                            <li class="md:mr-3">
+                                <a class="inline-block bg-gradient-to-r from-blue-700 to-purple-700 font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
+                                    href="{{ route('test-list') }}">
+                                    {{ __('public.test_list') }}
+                                </a>
+                            </li>
+                        @else
+                            <li class="md:mr-3">
+                                <a class="inline-block bg-gradient-to-r from-blue-700 to-purple-700 font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
+                                    href="{{ route('login') }}">
+                                    {{ __('public.login') }}
+                                </a>
+                            </li>
+                        @endif
                     @endunless
                 </ul>
             </div>
