@@ -1,7 +1,7 @@
 <x-mail::message>
 Bonjour,
 
-Voici votre lien de connexion au site Synesthésies :
+Voici votre lien de connexion au site {{ config('app.name') }} :
 
 <x-mail::button :url="$url">
 Connexion

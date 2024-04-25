@@ -27,7 +27,7 @@ class LoginLink extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Lien de connexion Synesthésies',
+            subject: 'Lien de connexion ' . config('app.name'),
         );
     }
 
