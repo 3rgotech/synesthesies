@@ -43,7 +43,7 @@ class MiscStep extends StepComponent
             'citizenship'          => $state['information-step']['citizenship'],
             'region'               => $state['information-step']['liveInFrance'] === 'yes' ? Region::tryFrom($state['information-step']['region']) : null,
             'language'             => $state['information-step']['language'],
-            'keep_informed'        => $state['information-step']['wantsToBeInformed'],
+            'keep_informed'        => boolval($state['information-step']['wantsToBeInformed']),
             'disorders'            => $disorders,
             'diagnosis'            => $state['medical-step']['diagnosis'],
             'other_disorders'      => $state['medical-step']['otherDisorders'] ?? '',

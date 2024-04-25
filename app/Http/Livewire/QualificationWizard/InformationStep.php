@@ -41,7 +41,7 @@ class InformationStep extends StepComponent
             'region'            => ['required_if:liveInFrance,yes', 'nullable', 'string', Rule::enum(Region::class)],
             'language'          => ['required', 'string', Rule::in(array_keys(__('public.qualification.values.language')))],
             'email'             => ['required', 'email', 'unique:subjects,email'],
-            'wantsToBeInformed' => ['boolean', Rule::excludeIf(fn () => blank($this->email))],
+            'wantsToBeInformed' => ['sometimes', 'boolean'],
         ];
     }
 
