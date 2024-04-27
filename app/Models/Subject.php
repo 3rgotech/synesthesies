@@ -7,6 +7,7 @@ use App\Enum\Gender;
 use App\Enum\Region;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Casts\AsEnumCollection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,6 +32,7 @@ class Subject extends Model implements Authenticatable
         'keep_informed',
         'disorders',
         'diagnosis',
+        'disordersWithDiagnosis',
         'other_disorders',
         'synesthesies',
         'spatial_synesthesies',
@@ -53,6 +55,7 @@ class Subject extends Model implements Authenticatable
         'region'               => Region::class,
         'keep_informed'        => 'boolean',
         'disorders'            => AsEnumCollection::class . ':' . Disorder::class,
+        'diagnosis'            => 'array',
         'synesthesies'         => 'array',
         'spatial_synesthesies' => 'array',
         'subtitles'            => 'boolean',
@@ -60,6 +63,23 @@ class Subject extends Model implements Authenticatable
         'has_changed'          => 'boolean',
         'problematic'          => 'boolean',
     ];
+
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'other_disorders' => '',
+        'comments'        => '',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['disordersWithDiagnosis'];
 
     public function testData(): HasMany
     {
@@ -129,5 +149,23 @@ class Subject extends Model implements Authenticatable
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    public function getDisordersWithDiagnosisAttribute()
+    {
+        return $this->disorders->map(fn ($disorder) => [
+            'disorder'  => $disorder->value,
+            'diagnosis' => $this->diagnosis[$disorder->value] ?? null,
+        ])->all();
+    }
+
+    public function setDisordersWithDiagnosisAttribute($value)
+    {
+        $this->disorders = collect($value)
+            ->pluck('disorder')
+            ->unique()
+            ->map(fn ($disorder) => Disorder::tryFrom($disorder))
+            ->filter(fn ($v) => filled($v));
+        $this->diagnosis = collect($value)->pluck('diagnosis', 'disorder')->all();
     }
 }

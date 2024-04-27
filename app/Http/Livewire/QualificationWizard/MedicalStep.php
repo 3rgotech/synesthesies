@@ -9,8 +9,8 @@ use Spatie\LivewireWizard\Components\StepComponent;
 class MedicalStep extends StepComponent
 {
     public array $disorders = [];
-    public string $diagnosis;
-    public string $otherDisorders;
+    public array $diagnosis = [];
+    public ?string $otherDisorders = '';
 
     public function submit()
     {
@@ -30,7 +30,13 @@ class MedicalStep extends StepComponent
         return [
             'disorders'   => ['array'],
             'disorders.*' => ['string', Rule::enum(Disorder::class)],
-            'diagnosis'   => [Rule::excludeIf(fn () => count($this->disorders) === 0), Rule::in(array_keys(__('public.qualification.values.diagnosis')))],
+            'diagnosis'   => ['array', function ($attribute, $value, $fail) {
+                if (count($value) !== count($this->disorders)) {
+                    $fail('Vous devez préciser l\'origine du diagnostic pour chaque trouble coché');
+                }
+            }],
+            'diagnosis.*'    => ['required', Rule::in(['', ...array_keys(__('public.qualification.values.diagnosis'))])],
+            'otherDisorders' => ['nullable', 'string'],
         ];
     }
 

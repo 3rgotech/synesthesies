@@ -30,6 +30,9 @@ class MiscStep extends StepComponent
             ->map(fn ($d) => Disorder::tryFrom($d))
             ->filter(fn ($d) => filled($d))
             ->all();
+        $diagnosis = collect($state['medical-step']['diagnosis'])
+            ->filter(fn ($d) => filled($d))
+            ->all();
         $synesthesies = collect($state['synesthesies-step']['synesthesies'])
             ->map(fn ($responses) => array_unique(array_filter($responses, fn ($response) => filled($response) && $response !== 'none')))
             ->filter(fn ($responses) => count($responses) > 0)
@@ -45,7 +48,7 @@ class MiscStep extends StepComponent
             'language'             => $state['information-step']['language'],
             'keep_informed'        => boolval($state['information-step']['wantsToBeInformed']),
             'disorders'            => $disorders,
-            'diagnosis'            => $state['medical-step']['diagnosis'],
+            'diagnosis'            => $diagnosis,
             'other_disorders'      => $state['medical-step']['otherDisorders'] ?? '',
             'synesthesies'         => $synesthesies,
             'spatial_synesthesies' => $state['other-details-step']['spatial'] === 'yes' ? $state['other-details-step']['spatialSynesthesies'] : [],

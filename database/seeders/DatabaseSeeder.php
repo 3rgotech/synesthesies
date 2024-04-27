@@ -90,19 +90,6 @@ class DatabaseSeeder extends Seeder
                 Task::class,
                 'Creating subjects',
                 function () {
-                    Subject::factory([
-                        'email'  => 'romain.goncalves@gmail.com',
-                        'synesthesies' => [
-                            Perception::DIGIT->value        => [Response::COLOR->value],
-                            Perception::LETTER->value       => [Response::COLOR->value],
-                            Perception::FRENCH_WORD->value  => [Response::COLOR->value],
-                            Perception::FOREIGN_WORD->value => [Response::COLOR->value],
-                            Perception::DAY_OF_WEEK->value  => [Response::COLOR->value],
-                            Perception::MUSIC->value        => [Response::COLOR->value],
-                            Perception::HUMAN_VOICE->value  => [Response::COLOR->value],
-                            Perception::SOUND->value        => [Response::COLOR->value],
-                        ]
-                    ])->create();
                     Subject::factory()->count(10)->create();
                 }
             );

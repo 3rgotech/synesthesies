@@ -13,6 +13,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -28,8 +29,6 @@ class SubjectResource extends Resource
 
     protected static ?string $modelLabel       = 'Participant';
     protected static ?string $pluralModelLabel = 'Participants';
-
-
 
     public static function form(Form $form): Form
     {
@@ -75,19 +74,27 @@ class SubjectResource extends Resource
                             ->required(),
                     ]),
                 Section::make('Informations Médicales')
-                    ->columns(2)
+                    ->columns(1)
                     ->schema([
-                        Forms\Components\Select::make('disorders')
-                            ->label('Troubles Neurodéveloppementaux')
-                            ->multiple()
-                            ->options(Disorder::class)
-                            ->required(),
-                        Forms\Components\Radio::make('diagnosis')
-                            ->required()
-                            ->options(__('public.qualification.values.diagnosis')),
+                        Forms\Components\Repeater::make('disordersWithDiagnosis')
+                            ->dehydrateStateUsing(fn ($state) => array_values($state))
+                            ->columns([
+                                'default' => 1,
+                                'lg'      => 2
+                            ])
+                            ->schema([
+                                Forms\Components\Select::make('disorder')
+                                    ->label('Trouble')
+                                    ->required()
+                                    ->options(Disorder::class),
+                                Forms\Components\Select::make('diagnosis')
+                                    ->label('Diagnostic')
+                                    ->required()
+                                    ->options(__('public.qualification.values.diagnosis'))
+                            ])
+                            ->label('Troubles Neurodéveloppementaux'),
                         Forms\Components\Textarea::make('other_disorders')
                             ->label('Autres troubles')
-                            ->nullable()
                             ->default('')
                             ->placeholder('')
                             ->maxLength(65535)
@@ -139,7 +146,6 @@ class SubjectResource extends Resource
                             ->hidden(fn ($get) => !$get('problematic')),
                         Forms\Components\Textarea::make('comments')
                             ->label('Commentaires')
-                            ->nullable()
                             ->default('')
                             ->placeholder('')
                             ->maxLength(65535)
@@ -188,7 +194,8 @@ class SubjectResource extends Resource
             ->actions([
                 Tables\Actions\ViewAction::make(),
             ])
-            ->bulkActions([]);
+            ->bulkActions([])
+            ->defaultSort('created_at', 'desc');
     }
 
     public static function getRelations(): array

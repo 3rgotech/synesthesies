@@ -22,8 +22,8 @@ return new class extends Migration
             $table->string('language');
             $table->boolean('keep_informed')->default(false);
             $table->json('disorders');
-            $table->text('other_disorders');
-            $table->string('diagnosis');
+            $table->text('other_disorders')->nullable();
+            $table->json('diagnosis');
             $table->json('synesthesies');
             $table->json('spatial_synesthesies');
             $table->boolean('subtitles');
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->text('has_changed_details')->nullable();
             $table->boolean('problematic')->nullable();
             $table->text('problematic_details')->nullable();
-            $table->text('comments');
+            $table->text('comments')->nullable();
             $table->timestamps();
         });
     }

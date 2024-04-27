@@ -8,38 +8,36 @@
                 {{ __('public.qualification.fields.disorder') }}
             </label>
             @foreach (\App\Enum\Disorder::cases() as $disorder)
-                <div class="relative mt-2 pl-2 sm:pl-0">
-                    <input id="disorder-{{ $disorder->value }}" value="{{ $disorder->value }}" name="disorders"
-                        wire:model="disorders" type="checkbox"
-                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    <label for="disorder-{{ $disorder->value }}"
-                        class="pl-3 text-sm leading-6 font-medium text-gray-700">{{ __('enums.disorder.' . $disorder->value) }}</label>
+                <div class="sm:col-span-6 pb-2 flex flex-col items-stretch" wire:key="disorder-{{ $disorder->value }}">
+                    <div class="relative mt-2 pl-2 sm:pl-0">
+                        <input id="disorder-{{ $disorder->value }}" value="{{ $disorder->value }}" name="disorders"
+                            wire:model="disorders"
+                            x-on:change="diagnosis = {...diagnosis, '{{ $disorder->value }}': ''}" type="checkbox"
+                            class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        <label for="disorder-{{ $disorder->value }}"
+                            class="pl-3 text-sm leading-6 font-medium text-gray-700">{{ __('enums.disorder.' . $disorder->value) }}</label>
+                    </div>
+                    <div class="grid grid-rows-3 gap-2 pl-8 mt-2" x-show="disorders.includes('{{ $disorder->value }}')"
+                        x-transition.duration.500ms>
+                        <label for="" class="block text-sm font-medium leading-6 text-gray-900">
+                            {{ __('public.qualification.fields.diagnosis') }}
+                            <span class="font-bold text-red-700">*</span>
+                        </label>
+                        @foreach (__('public.qualification.values.diagnosis') as $value => $label)
+                            <div class="flex items-center pl-2 space-x-3 sm:pl-0">
+                                <input id="diagnosis-{{ $disorder->value }}-response-{{ $value }}"
+                                    value="{{ $value }}" name="diagnosis-{{ $disorder->value }}"
+                                    x-model="diagnosis['{{ $disorder->value }}']" type="radio"
+                                    class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                <label for="diagnosis-{{ $disorder->value }}-response-{{ $value }}"
+                                    class="text-sm leading-6 font-medium text-gray-700">{{ $label }}</label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             @endforeach
             @error('disorders')
                 <p class="mt-2 text-sm text-red-600" id="disorders-error">{{ $message }}</p>
-            @enderror
-        </div>
-        <div class="sm:col-span-6" x-bind:class="disorders.length == 0 && 'hidden'">
-            <label for="" class="block text-sm font-medium leading-6 text-gray-900">
-                {{ __('public.qualification.fields.diagnosis') }}
-                <span class="font-bold text-red-700">*</span>
-            </label>
-            @foreach (__('public.qualification.values.diagnosis') as $value => $label)
-                <div class="relative mt-2 pl-2 flex items-start">
-                    <div class="flex h-6 items-center">
-                        <input id="diagnosis-{{ $value }}" value="{{ $value }}" name="diagnosis"
-                            wire:model="diagnosis" type="radio"
-                            class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                    </div>
-                    <div class="ml-3 text-sm leading-6">
-                        <label for="diagnosis-{{ $value }}"
-                            class="font-medium text-gray-700">{{ $label }}</label>
-                    </div>
-                </div>
-            @endforeach
-            @error('diagnosis')
-                <p class="mt-2 text-sm text-red-600" id="diagnosis-error">{{ $message }}</p>
             @enderror
         </div>
         <div class="sm:col-span-6">
@@ -65,7 +63,16 @@
     @script
         <script>
             Alpine.data('medical', () => ({
-                disorders: @entangle('disorders')
+                disorders: @entangle('disorders'),
+                diagnosis: @entangle('diagnosis'),
+                init: function() {
+                    this.$watch('disorders', (value) => {
+                        console.log('disorders', value);
+                    });
+                    this.$watch('diagnosis', (value) => {
+                        console.log('diagnosis', value);
+                    });
+                }
             }))
         </script>
     @endscript
