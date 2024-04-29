@@ -35,7 +35,6 @@ class GraphemeColorTest extends Component
             $this->stimulus = strval($this->stimuli[$this->currentIndex]['stimulus']);
         } else {
             $this->results = $existingData->data;
-            ray($this->results);
             $this->totalScore = collect($existingData->data)->pluck('score')->avg();
         }
     }

@@ -74,8 +74,11 @@
                     @endforeach
                 </div>
             </div>
-            <h2 class="text-bold text-3xl text-center mb-4">
+            <h2 class="font-bold text-3xl text-center mb-4">
                 {{ __('public.test.final_score') }} {{ round($totalScore, 2) }}
+            </h2>
+            <h2 class="text-lg font-light text-center mb-8">
+                {{ __('public.test.final_score_explanation') }}
             </h2>
             <div class="flex justify-center">
                 <a href="{{ route('test-list') }}"
