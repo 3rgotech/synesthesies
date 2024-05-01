@@ -56,21 +56,23 @@
                 {{ $this->test->title }}
             </h1>
             <div class="flex flex-col flex-1 justify-center">
-                <div class="grid grid-cols-2 grid-flow-col gap-x-16">
+                <div class="grid grid-cols-2 gap-x-16">
                     @foreach ($results as $grapheme => $data)
-                        <div class="grid grid-cols-4 divide-x divide-gray-600 border border-gray-600 items-stretch">
-                            @foreach ($data['responses'] as $item)
-                                <span
-                                    class="block font-display font-semibold text-3xl text-center w-16 {{ array_sum($item) > 600 ? 'bg-black' : '' }}"
-                                    style="color: rgb({{ implode(',', $item) }})">
-                                    {{ $grapheme }}
-                                </span>
-                            @endforeach
+                        @if (filled($grapheme))
+                            <div class="grid grid-cols-4 divide-x divide-gray-600 border border-gray-600 items-stretch">
+                                @foreach ($data['responses'] as $item)
+                                    <span
+                                        class="block font-display font-semibold text-3xl text-center w-16 {{ array_sum($item) > 600 ? 'bg-black' : '' }}"
+                                        style="color: rgb({{ implode(',', $item) }})">
+                                        {{ $grapheme }}
+                                    </span>
+                                @endforeach
 
-                            <span class="flex items-center justify-center text-xl">
-                                {{ round($data['score'], 2) }}
-                            </span>
-                        </div>
+                                <span class="flex items-center justify-center text-xl">
+                                    {{ round($data['score'], 2) }}
+                                </span>
+                            </div>
+                        @endif
                     @endforeach
                 </div>
             </div>
