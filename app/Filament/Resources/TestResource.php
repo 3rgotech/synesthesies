@@ -21,9 +21,12 @@ class TestResource extends Resource
 {
     protected static ?string $model = Test::class;
 
-    protected static ?string $navigationIcon = 'fas-clipboard-question';
-    protected static ?string $navigationGroup = 'Paramètres';
-    protected static ?int $navigationSort     = 15;
+    protected static ?string $navigationIcon   = 'fas-clipboard-question';
+    protected static ?string $navigationGroup  = 'Paramètres';
+    protected static ?int $navigationSort      = 15;
+    protected static ?string $navigationLabel  = 'Tests Synesthétiques';
+    protected static ?string $modelLabel       = 'Test Synesthétiques';
+    protected static ?string $pluralModelLabel = 'Tests Synesthétiques';
 
     public static function form(Form $form): Form
     {
