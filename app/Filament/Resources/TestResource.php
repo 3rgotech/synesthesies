@@ -65,7 +65,7 @@ class TestResource extends Resource
                     ->afterStateHydrated(function ($component, $state) {
                         $component->state(implode(', ', $state));
                     })
-                    ->dehydrateStateUsing(fn (string $state) => array_map('trim', explode(',', $state)))
+                    ->dehydrateStateUsing(fn (string $state) => array_filter(array_map('trim', explode(',', $state))))
                     ->helperText("Séparer les stimuli par des virgules"),
             ]);
     }
