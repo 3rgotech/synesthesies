@@ -17,8 +17,11 @@ class LikertTest extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'title',
         'description',
+        'introduction',
+        'icon',
+        'duration',
         'scale',
         'fixed_order',
         'score_computation_method'

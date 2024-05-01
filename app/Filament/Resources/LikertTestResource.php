@@ -7,9 +7,12 @@ use App\Filament\Resources\LikertTestResource\RelationManagers;
 use App\Models\LikertTest;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn\IconColumnSize;
 use Filament\Tables\Table;
+use Guava\FilamentIconPicker\Forms\IconPicker;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -28,12 +31,29 @@ class LikertTestResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
-                    ->label('Nom du test')
-                    ->columnSpanFull()
+                Forms\Components\TextInput::make('title')
+                    ->label('Titre')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\RichEditor::make('description')
+                Forms\Components\TextInput::make('duration')
+                    ->label('Durée')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('description')
+                    ->label('Description')
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpanFull(),
+                IconPicker::make('icon')
+                    ->label('Icône')
+                    ->columns([
+                        'default' => 1,
+                        'lg'      => 3,
+                        '2xl'     => 5,
+                    ])
+                    ->required()
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('introduction')
                     ->label('Description')
                     ->columnSpanFull()
                     ->columnSpanFull(),
@@ -59,7 +79,8 @@ class LikertTestResource extends Resource
                 Forms\Components\Toggle::make('fixed_order')
                     ->label('Ordre fixe des questions')
                     ->columnSpanFull()
-                    ->helperText('Doit rester activé si l\'ordre des questions influe sur le score (WBSI par exemple)')
+                    ->helperText('Doit rester activé si l\'ordre des questions influe sur le score (OSIVQ par exemple)')
+                    ->reactive()
                     ->required(),
                 Forms\Components\Repeater::make('questions')
                     ->label('Questions')
@@ -72,7 +93,7 @@ class LikertTestResource extends Resource
                             ->required()
                             ->maxLength(1000)
                     )
-                    ->reorderable()
+                    ->reorderable(fn (Get $get) => !$get('fixed_order'))
                     ->orderColumn('order')
                     ->addActionLabel('Ajouter une question'),
             ]);
@@ -82,7 +103,19 @@ class LikertTestResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\IconColumn::make('icon')
+                    ->label('Icône')
+                    ->size(IconColumnSize::Medium)
+                    ->icon(fn ($state) => $state)
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('title')
+                    ->label('Nom')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('description')
+                    ->label('Description')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('duration')
+                    ->label('Durée')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('questions_count')
                     ->counts('questions')

@@ -22,9 +22,12 @@ class LikertTestSeeder extends Seeder
     public function osivq(): void
     {
         $osivq = LikertTest::create([
-            'name'        => "Questionnaire d'Imagerie Spatiale-Objet et Verbal",
-            'description' => "<p>Ceci est un questionnaire sur votre façon de penser. Merci de lire attentivement les affirmations suivantes et d'évaluer chacune d'elles sur une échelle de 5 points. <br>Cliquez sur \"5\" si vous êtes absolument d'accord avec l'énoncé. <br>Cliquez \"1\" pour indiquer que vous êtes totalement en désaccord avec cet énoncé. <br>Cliquez \"3\" si vous n'êtes pas sûr, mais essayez de faire un choix. <br>Il est très important que vous répondiez à toutes les affirmations du questionnaire.</p>",
-            'scale' => [
+            'title'        => "Questionnaire d'Imagerie Spatiale-Objet et Verbal",
+            'description'  => null,
+            'duration'     => '20 minutes',
+            'icon'         => 'fas-cube',
+            'introduction' => "<p>Ceci est un questionnaire sur votre façon de penser. Merci de lire attentivement les affirmations suivantes et d'évaluer chacune d'elles sur une échelle de 5 points. <br>Cliquez sur \"5\" si vous êtes absolument d'accord avec l'énoncé. <br>Cliquez \"1\" pour indiquer que vous êtes totalement en désaccord avec cet énoncé. <br>Cliquez \"3\" si vous n'êtes pas sûr, mais essayez de faire un choix. <br>Il est très important que vous répondiez à toutes les affirmations du questionnaire.</p>",
+            'scale'        => [
                 '1' => '1 - Totalement en désaccord',
                 '2' => '2 - Plutôt en désaccord',
                 '3' => '3 - Ne sais pas',
@@ -75,9 +78,12 @@ class LikertTestSeeder extends Seeder
     public function wbsi(): void
     {
         $wbsi = LikertTest::create([
-            'name'        => 'Inventaire des Tendances à la Suppression (WBSI)',
-            'description' => "<p>Ce questionnaire porte sur les pensées. Il n'y a pas de bonnes ou mauvaises réponses, alors veuillez répondre honnêtement à chaque item ci-dessous. Assurez-vous de bien donner une réponse à chaque item en encerclant la lettre appropriée.</p>",
-            'scale' => [
+            'title'        => 'Inventaire des Tendances à la Suppression (WBSI)',
+            'description'  => null,
+            'duration'     => '10 minutes',
+            'icon'         => 'fas-head-side-virus',
+            'introduction' => "<p>Ce questionnaire porte sur les pensées. Il n'y a pas de bonnes ou mauvaises réponses, alors veuillez répondre honnêtement à chaque item ci-dessous. Assurez-vous de bien donner une réponse à chaque item en encerclant la lettre appropriée.</p>",
+            'scale'        => [
                 '1' => "1 - Pas du tout d'accord",
                 '2' => "2 - Pas d'accord",
                 '3' => "3 - Neutre ou je ne sais pas",
@@ -109,8 +115,11 @@ class LikertTestSeeder extends Seeder
     public function fits(): void
     {
         $fits = LikertTest::create([
-            'name'        => 'Fréquence des Pensées Involontaires (FITS)',
-            'description' => "<p>De nombreuses personnes ont des <strong>pensées involontaires</strong>. Les pensées involontaires viennent
+            'title'        => 'Fréquence des Pensées Involontaires (FITS)',
+            'description'  => null,
+            'duration'     => '5 minutes',
+            'icon'         => 'fas-brain',
+            'introduction' => "<p>De nombreuses personnes ont des <strong>pensées involontaires</strong>. Les pensées involontaires viennent
             à l'esprit sans effort et sans contrôle conscient. Elles peuvent être agréables ou désagréables.<br>Ici, nous nous intéressons à <strong>la fréquence</strong> à laquelle vous éprouvez différents types de pensées involontaires au quotidien.<br>À quelle fréquence les types de pensées involontaires suivants vous arrivent-ils ?</p>",
             'scale' => [
                 '1' => 'Jamais',
@@ -138,9 +147,12 @@ class LikertTestSeeder extends Seeder
     public function gad7(): void
     {
         $fits = LikertTest::create([
-            'name'        => 'Dépistage du Trouble Anxieux Généralisé (GAD-7)',
-            'description' => '<p>Au cours des 14 derniers jours, à quelle fréquence avez-vous été dérangé(e) par les problèmes suivants ?</p>',
-            'scale' => [
+            'title'        => 'Dépistage du Trouble Anxieux Généralisé (GAD-7)',
+            'description'  => null,
+            'duration'     => '5 minutes',
+            'icon'         => 'fas-cloud-bolt',
+            'introduction' => '<p>Au cours des 14 derniers jours, à quelle fréquence avez-vous été dérangé(e) par les problèmes suivants ?</p>',
+            'scale'        => [
                 '1' => 'Jamais',
                 '2' => 'Plusieurs jours',
                 '3' => 'Plus de la moitié des jours',

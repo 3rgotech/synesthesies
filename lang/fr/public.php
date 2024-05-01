@@ -81,6 +81,14 @@ return [
         ]
     ],
 
+    'list' => [
+        'synesthesies'             => 'Synesthésies',
+        'synesthesies_description' => 'Ces tests sont destinés à évaluer vos synesthésies en fonction des éléments que vous avez mentionnés dans le formulaire de qualification.',
+        'likert'                   => 'Personnalité',
+        'likert_description'       => 'Ces tests sont destinés à évaluer votre personnalité afin de nous fournir le contexte nécessaire lors de l\'analyse de vos résultats.',
+        'empty'                    => 'Aucun test disponible pour le moment.',
+    ],
+
     'test' => [
         'duration'                => 'Durée estimée :',
         'check_result'            => 'Consulter mon résultat',
