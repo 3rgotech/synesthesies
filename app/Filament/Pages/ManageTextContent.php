@@ -17,7 +17,7 @@ class ManageTextContent extends SettingsPage
 
     protected static string $settings         = TextContentSettings::class;
     protected static ?string $navigationGroup = 'Paramètres';
-    protected static ?int $navigationSort     = 20;
+    protected static ?int $navigationSort     = 30;
 
     public function form(Form $form): Form
     {

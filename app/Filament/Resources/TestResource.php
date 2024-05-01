@@ -23,7 +23,7 @@ class TestResource extends Resource
 
     protected static ?string $navigationIcon   = 'fas-clipboard-question';
     protected static ?string $navigationGroup  = 'Paramètres';
-    protected static ?int $navigationSort      = 15;
+    protected static ?int $navigationSort      = 10;
     protected static ?string $navigationLabel  = 'Tests Synesthétiques';
     protected static ?string $modelLabel       = 'Test Synesthétiques';
     protected static ?string $pluralModelLabel = 'Tests Synesthétiques';
@@ -98,10 +98,12 @@ class TestResource extends Resource
                     ->label('Réponse')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Création')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Mise à jour')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -86,6 +86,11 @@ class Subject extends Model implements Authenticatable
         return $this->hasMany(SubjectTest::class, 'subject_id', 'id');
     }
 
+    public function liketTestData(): HasMany
+    {
+        return $this->hasMany(LikertTestSubject::class, 'subject_id', 'id');
+    }
+
     /**
      * Get the name of the unique identifier for the user.
      *
