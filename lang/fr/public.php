@@ -87,6 +87,7 @@ return [
         'perform_test'            => 'Faire le test',
         'unsupported'             => 'Ce type de test n\'est pas supporté pour le moment. Veuillez nous contacter pour plus d\'informations.',
         'distinct_colors'         => 'Couleurs distinctes',
+        'no_color'                => 'Aucune couleur',
         'next'                    => 'Suivant',
         'final_score'             => 'Score final :',
         'final_score_explanation' => 'Ce score est calculé en fonction de vos sélections. Plus il est faible, plus il indique la présence de synesthésies.',

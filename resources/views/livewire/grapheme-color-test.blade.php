@@ -11,7 +11,7 @@
                         <template x-for="(grapheme, graphemeIndex) in (`${stimulus}`.split(''))">
                             <span class="block font-display font-light text-[12rem] border-gray-600" x-html="grapheme"
                                 x-bind:style="{
-                                    color: selectedColor[!!distinctColors ? graphemeIndex : 0],
+                                    color: noColor ? '#000000' : selectedColor[!!distinctColors ? graphemeIndex : 0],
                                     borderWidth: !!distinctColors ? (
                                         graphemeIndex === distinctIndex ? '1px' : 0) : 0
                                 }">
@@ -31,6 +31,16 @@
                             </div>
                         </div>
                     </template>
+                    <div class="relative flex items-center justify-center px-2 py-4">
+                        <div class="flex h-6 items-center">
+                            <input x-model="noColor" id="noColor" name="noColor" type="checkbox"
+                                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                        </div>
+                        <div class="ml-3 text-sm leading-6">
+                            <label for="noColor"
+                                class="font-medium text-gray-900">{{ __('public.test.no_color') }}</label>
+                        </div>
+                    </div>
                 </div>
                 <div id="picker" class="p-8" x-ignore wire:ignore>
                 </div>
@@ -103,7 +113,9 @@
                 progress: 0,
                 picker: null,
                 selectedColor: [],
+                noColor: false,
                 distinctColors: false,
+                distinctColorsMemory: [],
                 distinctIndex: 0,
                 canAdvance: false,
                 start: null,
@@ -111,6 +123,7 @@
                 init() {
                     this.$watch('currentIndex', () => {
                         this.updateDisplay();
+                        this.noColor = false;
                         this.distinctColors = false;
                         this.distinctIndex = 0;
                         this.canAdvance = false;
@@ -125,8 +138,15 @@
                     this.picker.on('input:change', (c) => {
                         this.canAdvance = true;
                         this.selectedColor[this.distinctIndex] = c.hexString;
-                        console.log(this.selectedColor);
                     })
+                    this.$watch('noColor', (nc) => {
+                        this.canAdvance = !!nc || (this.distinctColors && this.distinctIndex === (
+                            `${this.stimulus}`.length - 1));
+                    });
+                    this.$watch('distinctColors', (dc) => {
+                        this.canAdvance = !!nc || (this.distinctColors && this.distinctIndex === (
+                            `${this.stimulus}`.length - 1));
+                    });
                     this.updateDisplay();
                 },
                 updateDisplay() {
@@ -142,12 +162,14 @@
 
                 },
                 next() {
-                    if (`${this.stimulus}`.length > 0 &&
+                    if (this.noColor) {
+                        $wire.storeValue(null, Date.now() - this.start);
+                    } else if (`${this.stimulus}`.length > 0 &&
                         this.distinctColors &&
                         this.distinctIndex < (`${this.stimulus}`.length - 1)) {
                         this.distinctIndex = this.distinctIndex + 1;
                     } else {
-                        $wire.storeValue(this.picker.color.hexString, Date.now() - this.start);
+                        $wire.storeValue(this.selectedColor, Date.now() - this.start);
                     }
                 }
             }

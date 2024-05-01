@@ -26,8 +26,21 @@ class Math
         return $combinations;
     }
 
-    public static function distance(array $a, array $b): float
+    public static function distance(?array $a, ?array $b): float
     {
+        // If both $a and $b are null, return 0
+        if (is_null($a) && is_null($b)) {
+            return 0;
+        }
+
+        // If either $a or $b is null, replace it with an array of zeroes of the same size
+        if (is_null($a)) {
+            $a = array_fill(0, count($b), 0);
+        }
+        if (is_null($b)) {
+            $b = array_fill(0, count($a), 0);
+        }
+
         // Compute the euclidian distance between $a and $b (either 2 or 3 dimensions points)
         $sum = 0;
         for ($i = 0; $i < count($a); $i++) {

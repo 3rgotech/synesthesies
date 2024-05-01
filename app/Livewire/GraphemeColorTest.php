@@ -39,7 +39,7 @@ class GraphemeColorTest extends Component
         }
     }
 
-    public function storeValue(string $value, int $duration)
+    public function storeValue(string|array|null $value, int $duration)
     {
         $this->stimuli[$this->currentIndex]['value']    = $value;
         $this->stimuli[$this->currentIndex]['duration'] = $duration;
@@ -64,10 +64,18 @@ class GraphemeColorTest extends Component
         return view('livewire.grapheme-color-test');
     }
 
-    protected function hexToRgb(string $hex): array
+    protected function hexToRgb(string|array|null $hex): ?array
     {
-        $rgb = Hex::fromString($hex)->toRgb();
-        return [$rgb->red(), $rgb->green(), $rgb->blue()];
+        if (is_null($hex)) {
+            return null;
+        } else if (is_array($hex)) {
+            return collect($hex)
+                ->map(fn ($item) => $this->hexToRgb($item))
+                ->all();
+        } else {
+            $rgb = Hex::fromString($hex)->toRgb();
+            return [$rgb->red(), $rgb->green(), $rgb->blue()];
+        }
     }
 
     protected function generateData(array $stimuli): array
@@ -85,14 +93,16 @@ class GraphemeColorTest extends Component
             $item['score'] = $this->computeScore($item['responses']);
             return $item;
         }, $data);
-        ray($data);
         return $data;
     }
 
     protected function computeScore(array $responses): float
     {
         return collect(Math::combinations($responses, 2))
-            ->map(fn ($combination) => Math::distance(...$combination))
+            ->map(function ($combination) {
+                // TODO : compute score when color is null or array
+                return Math::distance(...$combination);
+            })
             ->avg();
     }
 }
