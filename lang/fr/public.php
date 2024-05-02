@@ -10,7 +10,7 @@ return [
     'test_list'  => 'Liste des tests',
 
     'qualification' => [
-        'steps' => [
+        'steps'  => [
             'information'   => 'Informations&nbsp;(1)',
             'medical'       => 'Informations&nbsp;(2)',
             'synesthesies'  => 'Votre synesthésie&nbsp;(1)',
@@ -38,23 +38,23 @@ return [
             'problematic'           => 'Est-ce que votre synesthésie vous gêne parfois ?',
             'comments'              => 'Est-ce que y aurait d\'autres choses dont vous souhaiteriez nous faire part en lien avec votre synesthésie ?',
 
-            'isItTheCase'          => 'Est-ce que c\'est le cas pour vous ?',
-            'ifYesExplain'         => 'Si oui, expliquez',
+            'isItTheCase'  => 'Est-ce que c\'est le cas pour vous ?',
+            'ifYesExplain' => 'Si oui, expliquez',
         ],
         'values' => [
             'citizenship' => [
                 'french' => 'Française',
-                'other' => 'Autre',
+                'other'  => 'Autre',
             ],
-            'language' => [
+            'language'    => [
                 'french' => 'Français',
-                'other' => 'Autre',
+                'other'  => 'Autre',
             ],
-            'diagnosis' => [
+            'diagnosis'   => [
                 'doctor' => 'Effectué par un professionnel (médecin, psychologue)',
                 'self'   => 'C\'est un autodiagnostic qui n\'a pas été confirmé par un professionnel',
             ],
-            'perception' => [
+            'perception'  => [
                 'letter'       => 'Lettres de l\'alphabet',
                 'french_word'  => 'Mot écrit en français',
                 'foreign_word' => 'Mot écrit en langue étrangère',
@@ -64,19 +64,19 @@ return [
                 'human_voice'  => 'Voix humaines',
                 'sound'        => 'Bruits',
             ],
-            'spatial' => [
+            'spatial'     => [
                 'digit' => 'Chiffre',
                 'month' => 'Mois',
                 'year'  => 'Année',
                 'other' => 'Autre(s)',
             ],
-            'boolean' => [
+            'boolean'     => [
                 'yes'     => 'Oui',
                 'no'      => 'Non',
                 'unknown' => 'Ne sait pas',
             ]
         ],
-        'help' => [
+        'help'   => [
             'email' => 'Vous permettra de retrouver vos réponses ainsi que les résultats à vos tests. (Ce mail sera uniquement utilisé dans le cadre de ce protocole de recherche)',
         ]
     ],
@@ -100,5 +100,6 @@ return [
         'final_score'             => 'Score final :',
         'final_score_explanation' => 'Ce score est calculé en fonction de vos sélections. Plus il est faible, plus il indique la présence de synesthésies.',
         'back_to_list'            => 'Retour à la liste des tests',
+        'save'                    => 'Enregistrer mes réponses',
     ]
 ];

@@ -47,7 +47,7 @@ class GraphemeColorTest extends Component
 
         if ($this->currentIndex >= $this->totalStimuli) {
             // store results
-            $data = $this->generateData($this->stimuli);
+            $data = $this->generateData();
             $this->test->testData()->create([
                 'subject_id' => Auth::guard('subjects')->id(),
                 'data'       => $data
@@ -78,7 +78,7 @@ class GraphemeColorTest extends Component
         }
     }
 
-    protected function generateData(array $stimuli): array
+    protected function generateData(): array
     {
         $data = collect($this->stimuli)
             ->reduce(function ($carry, $item) {
@@ -89,11 +89,10 @@ class GraphemeColorTest extends Component
                 $carry[$item['stimulus']]['duration'][] = $item['duration'];
                 return $carry;
             }, []);
-        $data = array_map(function ($item) {
+        return array_map(function ($item) {
             $item['score'] = $this->computeScore($item['responses']);
             return $item;
         }, $data);
-        return $data;
     }
 
     protected function computeScore(array $responses): float

@@ -129,7 +129,7 @@ class LikertTestSeeder extends Seeder
                 '5' => 'Plusieurs fois par jour',
                 '6' => 'Constamment',
             ],
-            'fixed_order'              => false,
+            'fixed_order'              => true,
             'score_computation_method' => null,
         ]);
         $fits->questions()->createMany([
