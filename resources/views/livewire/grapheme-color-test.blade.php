@@ -61,7 +61,7 @@
         </div>
     </div>
     @if (filled($results))
-        <div class="flex-1 flex flex-col items-center py-32" x-bind:class="(results ?? []).length === 0 && 'hidden'">
+        <div class="flex-1 flex flex-col items-center py-32">
             <h1 class="text-bold text-4xl text-center mb-4">
                 {{ $this->test->title }}
             </h1>
@@ -69,17 +69,51 @@
                 <div class="grid grid-cols-2 gap-x-16">
                     @foreach ($results as $grapheme => $data)
                         @if (filled($grapheme))
-                            <div class="grid grid-cols-4 divide-x divide-gray-600 border border-gray-600 items-stretch">
+                            <div @class([
+                                'grid divide-x divide-gray-600 border border-gray-600 items-stretch' => true,
+                                'grid-cols-3' => $this->REPETITIONS === 2,
+                                'grid-cols-4' => $this->REPETITIONS === 3,
+                                'grid-cols-5' => $this->REPETITIONS === 4,
+                                'grid-cols-6' => $this->REPETITIONS === 5,
+                            ])>
                                 @foreach ($data['responses'] as $item)
+                                    {{-- @if (strlen($grapheme) > 1) --}}
                                     <span
-                                        class="block font-display font-semibold text-3xl text-center w-16 {{ array_sum($item) > 600 ? 'bg-black' : '' }}"
-                                        style="color: rgb({{ implode(',', $item) }})">
-                                        {{ $grapheme }}
+                                        class="block font-display font-semibold text-3xl text-center w-16 tracking-tighter">
+                                        @foreach (str_split($grapheme) as $charIndex => $char)
+                                            @php
+                                                if ($item !== null && !array_key_exists($charIndex, $item)) {
+                                                    // If $item is not null but is smaller than $charIndex, color is first index
+                                                    $color = $item[0];
+                                                } elseif ($item === null) {
+                                                    // If $item is null, color is black
+                                                    $color = [0, 0, 0];
+                                                } else {
+                                                    $color = $item[$charIndex];
+                                                }
+                                            @endphp
+                                            <span class="{{ array_sum($color) > 600 ? 'bg-black' : '' }}"
+                                                style="color: rgb({{ implode(',', $color) }})">
+                                                {{ $char }}
+                                            </span>
+                                        @endforeach
                                     </span>
+                                    {{-- @else
+                                        {{ dump($item) }}
+                                        <span
+                                            class="block font-display font-semibold text-3xl text-center w-16 {{ array_sum($item) > 600 ? 'bg-black' : '' }}"
+                                            style="color: rgb({{ implode(',', $item ?? [0, 0, 0]) }})">
+                                            {{ $grapheme }}
+                                        </span>
+                                    @endif --}}
                                 @endforeach
 
                                 <span class="flex items-center justify-center text-xl">
-                                    {{ round($data['score'], 2) }}
+                                    @if (is_null($data['score']))
+                                        &oslash;
+                                    @else
+                                        {{ round($data['score'], 2) }}
+                                    @endif
                                 </span>
                             </div>
                         @endif

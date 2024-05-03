@@ -11,6 +11,7 @@ use Spatie\Color\Hex;
 
 class GraphemeColorTest extends Component
 {
+    public int $REPETITIONS = 2;
     public Test $test;
     public ?array $stimuli = null;
     public ?array $results = null;
@@ -25,7 +26,7 @@ class GraphemeColorTest extends Component
         $this->test = Test::find($testId);
         $existingData = $this->test->testData()->where('subject_id', Auth::guard('subjects')->id())->get()->first();
         if ($existingData === null) {
-            $this->stimuli = Collection::times(3, fn () => $this->test->stimuli)
+            $this->stimuli = Collection::times($this->REPETITIONS, fn () => $this->test->stimuli)
                 ->flatten()
                 ->shuffle()
                 ->map(fn ($s) => ['stimulus' => $s, 'value' => null, 'duration' => null])
@@ -44,6 +45,8 @@ class GraphemeColorTest extends Component
         $this->stimuli[$this->currentIndex]['value']    = $value;
         $this->stimuli[$this->currentIndex]['duration'] = $duration;
         $this->currentIndex = ($this->currentIndex + 1);
+
+        dump($this->stimuli);
 
         if ($this->currentIndex >= $this->totalStimuli) {
             // store results
@@ -90,18 +93,41 @@ class GraphemeColorTest extends Component
                 return $carry;
             }, []);
         return array_map(function ($item) {
-            $item['score'] = $this->computeScore($item['responses']);
+            if (in_array(null, $item['responses'])) {
+                // User has selected "no color" at least once
+                $item['score'] = null;
+            } else if (!$this->isValidForDistinctColors($item['responses'])) {
+                $item['score'] = null;
+            } else {
+                $item['score'] = $this->computeScore($item['responses']);
+            }
             return $item;
         }, $data);
     }
 
+    protected function isValidForDistinctColors(array $responses): bool
+    {
+        // If at least one item is an array, every item must be an array to return true, otherwise return false
+        $isArray = array_filter($responses, fn ($item) => is_array($item));
+        return in_array(true, $isArray)
+            && !in_array(false, $isArray);
+    }
+
     protected function computeScore(array $responses): float
     {
-        return collect(Math::combinations($responses, 2))
-            ->map(function ($combination) {
-                // TODO : compute score when color is null or array
-                return Math::distance(...$combination);
-            })
-            ->avg();
+        // If at least one item is an array, do the score computation on each column, then average the results
+        if (in_array(true, array_filter($responses, fn ($item) => is_array($item) && is_array($item[0])))) {
+            $arraySize = count($responses[0]);
+            return collect(range(0, $arraySize - 1))
+                ->map(fn ($i) => collect($responses)->map(fn ($item) => $item[$i]))
+                ->map(fn ($item) => $this->computeScore($item->all()))
+                ->avg();
+        } else {
+            return collect(Math::combinations($responses, 2))
+                ->map(function ($combination) {
+                    return Math::distance(...$combination);
+                })
+                ->avg();
+        }
     }
 }
