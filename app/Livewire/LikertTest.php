@@ -37,7 +37,7 @@ class LikertTest extends Component
             $this->totalQuestions     = count($this->questions);
             $this->remainingQuestions = count($this->questions);
         } else {
-            $this->results = $existingData->data;
+            $this->results = collect($existingData->data)->pluck('response', 'id')->all();
             if (filled($this->test->score_computation_method)) {
                 $method      = $this->test->score_computation_method;
                 $this->score = LikertTestScore::$method($existingData->data);
