@@ -15,8 +15,12 @@ use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
+use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Alignment;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Table;
+use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
 class SubjectResource extends Resource
 {
@@ -37,6 +41,11 @@ class SubjectResource extends Resource
                 Section::make('Informations')
                     ->columns(2)
                     ->schema([
+                        Forms\Components\TextInput::make('id')
+                            ->label('Identifiant')
+                            ->email()
+                            ->readOnly()
+                            ->maxLength(255),
                         Forms\Components\TextInput::make('email')
                             ->label('Email')
                             ->email()
@@ -133,14 +142,14 @@ class SubjectResource extends Resource
                         Forms\Components\Toggle::make('has_changed')
                             ->label('A changé dans le temps ?')
                             ->live(),
-                        Forms\Components\TextArea::make('has_changed_details')
+                        Forms\Components\Textarea::make('has_changed_details')
                             ->label('Détails des changements')
                             ->columnSpanFull()
                             ->hidden(fn ($get) => !$get('has_changed')),
                         Forms\Components\Toggle::make('problematic')
                             ->label('Problématique ?')
                             ->live(),
-                        Forms\Components\TextArea::make('problematic_details')
+                        Forms\Components\Textarea::make('problematic_details')
                             ->label('Détails de la problématique')
                             ->columnSpanFull()
                             ->hidden(fn ($get) => !$get('problematic')),
@@ -159,9 +168,14 @@ class SubjectResource extends Resource
         return $table
 
             ->columns([
+                Tables\Columns\TextColumn::make('id')
+                    ->label('Identifiant')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('gender')
                     ->label('Genre'),
                 Tables\Columns\TextColumn::make('birth_year')
@@ -195,7 +209,38 @@ class SubjectResource extends Resource
                 Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([])
-            ->defaultSort('created_at', 'desc');
+            ->defaultSort('created_at', 'desc')
+            ->headerActions([
+                Action::make('mailingList')
+                    ->label('Mailing List')
+                    ->color(Color::Blue)
+                    ->icon('fas-envelope')
+                    ->form([
+                        Forms\Components\Textarea::make('mailing')
+                            ->label('Participants souhaitant être informés')
+                            ->readOnly()
+                            ->rows(6)
+                            ->default(self::mailingList())
+                            ->hintAction(
+                                CopyAction::make()
+                                    ->label('Tout copier')
+                                    ->copyable(self::mailingList())
+                            ),
+                        Forms\Components\Textarea::make('mailing_all')
+                            ->label('Tous les participants')
+                            ->readOnly()
+                            ->rows(6)
+                            ->default(self::mailingList(includeAll: true))
+                            ->hintAction(
+                                CopyAction::make()
+                                    ->label('Tout copier')
+                                    ->copyable(self::mailingList(includeAll: true))
+                            ),
+                    ])
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Fermer')
+                    ->modalFooterActionsAlignment(Alignment::End)
+            ]);
     }
 
     public static function getRelations(): array
@@ -212,5 +257,13 @@ class SubjectResource extends Resource
             'create' => Pages\CreateSubject::route('/create'),
             'view'   => Pages\ViewSubject::route('/{record}'),
         ];
+    }
+
+    public static function mailingList(bool $includeAll = false): string
+    {
+        return Subject::query()
+            ->when(!$includeAll, fn ($query) => $query->where('keep_informed', true))
+            ->pluck('email')
+            ->join(';');
     }
 }
