@@ -199,14 +199,19 @@ class SubjectResource extends Resource
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Date de création')
-                    ->dateTime('d/m/Y H:i')
+                    ->dateTime()
                     ->sortable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->label('Informations'),
+                Tables\Actions\Action::make('likert')
+                    ->label('Tests de Likert')
+                    ->icon('fas-user-check')
+                    ->url(fn ($record) => route('filament.admin.resources.likert-test-subjects.index', ['tableFilters[subject][value]' => $record->id])),
             ])
             ->bulkActions([])
             ->defaultSort('created_at', 'desc')
