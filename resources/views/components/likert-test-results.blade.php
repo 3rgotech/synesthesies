@@ -16,7 +16,7 @@
                     class="flex-shrink-0 inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-sm font-bold text-gray-600 ring-1 ring-inset ring-gray-500">
                     {{ $index + 1 }}
                 </span>
-                <span class="text-center whitespace-normal block font-semibold leading-6 text-gray-900">
+                <span class="text-center whitespace-normal block font-semibold leading-6 text-gray-900 dark:text-white">
                     {{ $question->question }}
                 </span>
                 <div

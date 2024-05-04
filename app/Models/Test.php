@@ -43,4 +43,24 @@ class Test extends Model
     {
         return $this->hasMany(SubjectTest::class, 'test_id', 'id');
     }
+
+    public function getTestComponent(): ?string
+    {
+        if ($this->response === Response::COLOR) {
+            if ($this->perception === Perception::DIGIT || $this->perception === Perception::LETTER) {
+                return 'grapheme-color-test';
+            }
+        }
+        return null;
+    }
+
+    public function getResultsComponent(): ?string
+    {
+        if ($this->response === Response::COLOR) {
+            if ($this->perception === Perception::DIGIT || $this->perception === Perception::LETTER) {
+                return 'grapheme-color-results';
+            }
+        }
+        return null;
+    }
 }

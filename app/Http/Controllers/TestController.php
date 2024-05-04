@@ -14,15 +14,8 @@ class TestController extends Controller
      */
     public function __invoke(Request $request, Test $test)
     {
-        $testComponent = null;
-        if ($test->response === Response::COLOR) {
-            if ($test->perception === Perception::DIGIT || $test->perception === Perception::LETTER) {
-                $testComponent = 'grapheme-color-test';
-            }
-        }
-
         return view('test', [
-            'testComponent' => $testComponent,
+            'testComponent' => $test->getTestComponent(),
             'testId'        => $test->id
         ]);
     }
