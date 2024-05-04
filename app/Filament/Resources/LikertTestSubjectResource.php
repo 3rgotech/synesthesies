@@ -25,12 +25,12 @@ class LikertTestSubjectResource extends Resource
     protected static ?string $model = LikertTestSubject::class;
 
     protected static ?string $navigationIcon  = 'fas-user-check';
-    protected static ?string $navigationLabel = 'Réponses Likert';
+    protected static ?string $navigationLabel = 'Réponses Personnalité';
     protected static ?string $navigationGroup = 'Réponses';
     protected static ?int $navigationSort     = 10;
 
     protected static ?string $modelLabel       = 'Réponse';
-    protected static ?string $pluralModelLabel = 'Réponses aux tests de Likert';
+    protected static ?string $pluralModelLabel = 'Réponses aux tests de Personnalité';
 
     public static function form(Form $form): Form
     {

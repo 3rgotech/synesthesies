@@ -277,7 +277,7 @@ class SubjectResource extends Resource
                     ->color(Color::Green)
                     ->url(fn ($record) => route('filament.admin.resources.subject-tests.index', ['tableFilters[subject][value]' => $record->id])),
                 Tables\Actions\Action::make('likert')
-                    ->label('Tests de Likert')
+                    ->label('Tests de Personnalité')
                     ->icon('fas-user-check')
                     ->color(Color::Blue)
                     ->url(fn ($record) => route('filament.admin.resources.likert-test-subjects.index', ['tableFilters[subject][value]' => $record->id])),
