@@ -10,6 +10,7 @@ use App\Enum\Response;
 use App\Filament\Resources\SubjectResource\Pages;
 use App\Models\Subject;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Form;
@@ -19,7 +20,11 @@ use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Alignment;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Webbingbrasil\FilamentCopyActions\Forms\Actions\CopyAction;
 
 class SubjectResource extends Resource
@@ -180,7 +185,7 @@ class SubjectResource extends Resource
                     ->label('Genre'),
                 Tables\Columns\TextColumn::make('birth_year')
                     ->label('Année de naissance')
-                    ->numeric()
+                    ->numeric(thousandsSeparator: '')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('citizenship')
                     ->label('Nationalité')
@@ -203,8 +208,66 @@ class SubjectResource extends Resource
                     ->sortable(),
             ])
             ->filters([
-                //
-            ])
+                SelectFilter::make('gender')
+                    ->label('Genre')
+                    ->options(Gender::class),
+                SelectFilter::make('citizenship')
+                    ->label('Nationalité')
+                    ->options(__('public.qualification.values.citizenship')),
+                SelectFilter::make('language')
+                    ->label('Langue maternelle')
+                    ->options(__('public.qualification.values.language')),
+                Filter::make('birth_year')
+                    ->label('Date')
+                    ->form([
+                        Forms\Components\TextInput::make('born_from')
+                            ->label('Né après')
+                            ->numeric()
+                            ->default(1900)
+                            ->minValue(1900)
+                            ->maxValue(date('Y')),
+                        Forms\Components\TextInput::make('born_until')
+                            ->label('Né avant')
+                            ->numeric()
+                            ->default(date('Y'))
+                            ->minValue(1900)
+                            ->maxValue(date('Y')),
+                    ])
+                    // ->columns(2)
+                    // ->columnSpan(2)
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['born_from'],
+                                fn (Builder $query, $year): Builder => $query->where('birth_year', '>=', $year),
+                            )
+                            ->when(
+                                $data['born_until'],
+                                fn (Builder $query, $year): Builder => $query->where('birth_year', '<=', $year),
+                            );
+                    }),
+                Filter::make('created_at')
+                    ->label('Date')
+                    ->form([
+                        DatePicker::make('created_from')
+                            ->label('Créé après'),
+                        DatePicker::make('created_until')
+                            ->label('Créé avant'),
+                    ])
+                    // ->columns(2)
+                    // ->columnSpan(2)
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['created_from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                            )
+                            ->when(
+                                $data['created_until'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                            );
+                    })
+            ], layout: FiltersLayout::AboveContent)
             ->actions([
                 Tables\Actions\ViewAction::make()
                     ->label('Informations'),
