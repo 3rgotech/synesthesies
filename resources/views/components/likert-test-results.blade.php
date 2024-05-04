@@ -46,9 +46,9 @@
     </h2>
     @if (filled($backUrl))
         @if (!is_null($test->score_explanation))
-            <h2 class="text-lg font-light text-center mb-8">
-                {{ __('public.test.final_score_explanation') }}
-            </h2>
+            <div class="text-lg font-light text-center mb-8">
+                {!! __('public.test.final_score_explanation') !!}
+            </div>
         @endif
         <div class="flex justify-center">
             <a href="{{ $backUrl }}"

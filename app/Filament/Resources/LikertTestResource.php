@@ -55,7 +55,6 @@ class LikertTestResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\RichEditor::make('introduction')
                     ->label('Description')
-                    ->columnSpanFull()
                     ->columnSpanFull(),
                 Forms\Components\Repeater::make('scale')
                     ->label('Echelle de réponses')
@@ -82,6 +81,9 @@ class LikertTestResource extends Resource
                     ->helperText('Doit rester activé si l\'ordre des questions influe sur le score (OSIVQ par exemple)')
                     ->reactive()
                     ->required(),
+                Forms\Components\RichEditor::make('score_explanation')
+                    ->label('Explication du calcul de score')
+                    ->columnSpanFull(),
                 Forms\Components\Repeater::make('questions')
                     ->label('Questions')
                     ->relationship('questions')
