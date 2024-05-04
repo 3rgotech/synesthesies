@@ -12,7 +12,7 @@ use Illuminate\View\Component;
 class LikertTestResults extends Component
 {
     public array $resultsData;
-    public ?float $score = null;
+    public float|array|null $score = null;
     /**
      * Create a new component instance.
      */

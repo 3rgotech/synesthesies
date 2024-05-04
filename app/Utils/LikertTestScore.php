@@ -18,6 +18,10 @@ class LikertTestScore
             'verbal'  => 0,
         ];
 
+        $data = collect($data)->pluck('response', 'id')->toArray();
+
+        dump($data);
+
         foreach ($categories as $category => $questions) {
             foreach ($questions as $q) {
                 // If $question index is inverted, invert the score (5 becomes 1 ; 4 becomes 2 ; 3 stays 3 ; 2 becomes 4 ; 1 becomes 5)

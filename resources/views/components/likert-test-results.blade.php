@@ -1,9 +1,9 @@
 <div @class([
-    'flex-1 flex flex-col justify-start items-stretch mx-auto w-full' => true,
+    'flex-1 flex flex-col justify-between items-stretch mx-auto w-full' => true,
     'sm:max-h-[50vh]' => filled($backUrl),
 ])>
     <div @class([
-        'flex-1 flex flex-col justify-center items-stretch overflow-y-scroll' => true,
+        'flex-1 flex flex-col justify-start items-stretch overflow-y-scroll' => true,
         'w-3/4 mx-auto' => filled($backUrl),
     ])>
         @foreach ($test->questions as $index => $question)
@@ -16,7 +16,7 @@
                     class="flex-shrink-0 inline-flex items-center rounded-md bg-gray-100 px-2 py-1 text-sm font-bold text-gray-600 ring-1 ring-inset ring-gray-500">
                     {{ $index + 1 }}
                 </span>
-                <span class="text-center whitespace-normal block font-semibold leading-6 text-gray-900 dark:text-white">
+                <span class="text-center whitespace-normal block font-semibold leading-6 text-gray-600 dark:text-white">
                     {{ $question->question }}
                 </span>
                 <div
@@ -27,8 +27,8 @@
         @endforeach
     </div>
     @if (!is_null($score))
-        <h2 class="font-bold text-3xl text-center mb-4 flex items-center space-x-4">
-            <span class="underline">
+        <h2 class="font-semibold text-xl text-center my-4 flex items-center justify-center space-x-8">
+            <span class="underline text-2xl">
                 {{ __('public.test.final_score') }}
             </span>
             @if (is_numeric($score))
