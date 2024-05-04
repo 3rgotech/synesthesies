@@ -30,6 +30,7 @@ class TestListController extends Controller
             ->get()
             ->filter(fn (Test $test) => array_key_exists($test->perception->value, $subjectSynesthesies)
                 && in_array($test->response->value, $subjectSynesthesies[$test->perception->value]))
+            ->filter(fn (Test $test) => $test->getTestComponent() !== null)
             ->map(fn (Test $test) => $this->toArray($test))
             ->all();
     }

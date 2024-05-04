@@ -50,6 +50,9 @@ class Test extends Model
             if ($this->perception === Perception::DIGIT || $this->perception === Perception::LETTER) {
                 return 'grapheme-color-test';
             }
+            if ($this->perception === Perception::DAY_OF_WEEK) {
+                return 'word-color-test';
+            }
         }
         return null;
     }
@@ -59,6 +62,9 @@ class Test extends Model
         if ($this->response === Response::COLOR) {
             if ($this->perception === Perception::DIGIT || $this->perception === Perception::LETTER) {
                 return 'grapheme-color-results';
+            }
+            if ($this->perception === Perception::DAY_OF_WEEK) {
+                return 'word-color-results';
             }
         }
         return null;
