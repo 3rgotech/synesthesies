@@ -1,7 +1,6 @@
 <div class="flex-1 flex flex-col items-stretch">
     @if (is_null($results))
-        <div class="flex-1 flex flex-col justify-center items-stretch space-y-8 mx-auto" x-data="grapheme"
-            x-bind:class="results && 'hidden'">
+        <div class="flex-1 flex flex-col justify-center items-stretch space-y-8 mx-auto" x-data="grapheme">
             <div class="flex flex-col items-stretch">
                 <h1 class="text-bold text-4xl text-center">
                     {{ $this->test->title }}

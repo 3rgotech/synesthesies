@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\LikertTest as ModelsLikertTest;
 use App\Models\LikertTestQuestion;
+use App\Models\LikertTestSubject;
 use App\Utils\LikertTestScore;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -14,8 +15,7 @@ class LikertTest extends Component
 
     public ?array $scale = null;
     public ?array $questions = null;
-    public ?array $results = null;
-    public ?array $score = null;
+    public ?LikertTestSubject $results = null;
 
     public int $remainingQuestions = 0;
     public int $totalQuestions = 0;
@@ -27,31 +27,27 @@ class LikertTest extends Component
         $existingData = $this->test->testData()->where('subject_id', Auth::guard('subjects')->id())->get()->first();
         if ($existingData === null) {
             $this->questions = $this->test->questions
-                ->map(fn(LikertTestQuestion $q) => [
+                ->map(fn (LikertTestQuestion $q) => [
                     'id'    => $q->id, 'question' => $q->question,
                     'order' => $q->order, 'response' => null
                 ])
-                ->when(!$this->test->fixed_order, fn($collection) => $collection->shuffle())
+                ->when(!$this->test->fixed_order, fn ($collection) => $collection->shuffle())
                 ->all();
 
             $this->totalQuestions     = count($this->questions);
             $this->remainingQuestions = count($this->questions);
         } else {
-            $this->results = collect($existingData->data)->pluck('response', 'id')->all();
-            if (filled($this->test->score_computation_method)) {
-                $method      = $this->test->score_computation_method;
-                $this->score = LikertTestScore::$method($existingData->data);
-            }
+            $this->results = $existingData;
         }
     }
 
     public function storeValue(int $questionId, int $value)
     {
         $this->questions          = collect($this->questions)
-            ->map(fn($question) => $question['id'] === $questionId ? [...$question, 'response' => $value] : $question)
+            ->map(fn ($question) => $question['id'] === $questionId ? [...$question, 'response' => $value] : $question)
             ->all();
         $this->remainingQuestions = collect($this->questions)
-            ->filter(fn($question) => blank($question['response']))
+            ->filter(fn ($question) => blank($question['response']))
             ->count();
     }
 
@@ -61,17 +57,12 @@ class LikertTest extends Component
             // store results
 
             $data = collect($this->questions)
-                ->map(fn(array $question) => ['id' => $question['id'], 'response' => $question['response']])
+                ->map(fn (array $question) => ['id' => $question['id'], 'response' => $question['response']])
                 ->toArray();
-            $this->test->testData()->create([
+            $this->results = $this->test->testData()->create([
                 'subject_id' => Auth::guard('subjects')->id(),
                 'data'       => $data,
             ]);
-            $this->results = $data;
-            if (filled($this->test->score_computation_method)) {
-                $method      = $this->test->score_computation_method;
-                $this->score = LikertTestScore::$method($data);
-            }
         }
     }
 

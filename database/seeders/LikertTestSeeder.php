@@ -36,6 +36,7 @@ class LikertTestSeeder extends Seeder
             ],
             'fixed_order'              => true,
             'score_computation_method' => 'osivq',
+            'score_explanation' => 'Ce score permet d\'identifier les types d\'imagerie mentale les plus développés. Chaque critère est évalué sur une échelle de 15 à 75 points.'
         ]);
         $osivq->questions()->createMany([
             ["order" => 1, "question" => "Quand j'étais étudiant(e), j'étais très bon(ne) en géométrie 3D"],

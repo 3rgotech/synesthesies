@@ -101,5 +101,10 @@ return [
         'final_score_explanation' => 'Ce score est calculé en fonction de vos sélections. Plus il est faible, plus il indique la présence de synesthésies.',
         'back_to_list'            => 'Retour à la liste des tests',
         'save'                    => 'Enregistrer mes réponses',
+        'score_criteria'          => [
+            'object'  => 'Objet',
+            'spatial' => 'Spatial',
+            'verbal'  => 'Verbal',
+        ]
     ]
 ];

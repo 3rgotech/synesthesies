@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\LikertTestSubjectResource\Pages;
 use App\Filament\Resources\LikertTestSubjectResource\RelationManagers;
+use App\Forms\Components\LikertTestResults;
 use App\Models\LikertTest;
 use App\Models\LikertTestSubject;
 use Filament\Forms;
@@ -42,19 +43,8 @@ class LikertTestSubjectResource extends Resource
                 Forms\Components\Select::make('likertTest')
                     ->label('Test')
                     ->relationship('likertTest', 'title'),
-                Forms\Components\Repeater::make('questions')
-                    ->label('Questions')
-                    ->columnSpanFull()
-                    ->relationship('questions')
-                    ->schema([
-                        Forms\Components\Radio::make('response')
-                            ->label(false)
-                            ->options(fn (Get $get) => self::getScale($get('../../likertTest')))
-                            ->formatStateUsing(fn (Get $get) => collect($get('../../data'))->firstWhere(fn ($item) => $item['id'] === $get('id'))['response'])
-                            ->inline()
-                    ])
-                    ->itemLabel(fn (array $state): ?string => $state['order'] . ' - ' . $state['question'])
-                    ->addable(false),
+                LikertTestResults::make('questions')
+                    ->columnSpanFull(),
             ]);
     }
 
