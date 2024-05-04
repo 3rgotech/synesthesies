@@ -81,7 +81,6 @@
                         start: null,
 
                         init() {
-                            console.log(this.results);
                             this.$watch('currentIndex', () => {
                                 this.updateDisplay();
                                 this.noColor = false;

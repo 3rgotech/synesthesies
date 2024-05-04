@@ -7,10 +7,15 @@
                 </h1>
                 <div class="flex flex-row items-stretch border border-gray-400 rounded-xl divide-x divide-gray-400">
                     <div class="flex flex-col items-stretch divide-y divide-gray-400">
-                        <div class="flex-1 flex justify-center items-center px-8">
-                            <span class="block font-display font-light text-[12rem] border-gray-600" x-html="stimulus"
+                        <div class="flex-1 flex flex-col justify-center items-center px-8">
+                            <span class="block font-display font-light text-lg border-gray-600" x-html="stimulus.label"
                                 x-bind:style="{ color: noColor ? '#000000' : selectedColor }">
                             </span>
+                            <audio controls preload x-ref="audio">
+                                {{-- <source src="http://synesthesies.test/storage/4/a_pascal.wav" type="audio/x-wav"> --}}
+                                <source x-bind:src="stimulus.file" x-bind:type="stimulus.type">
+                                Votre navigateur ne supporte pas la lecture de fichiers audio
+                            </audio>
                         </div>
                         <div class="relative flex items-center justify-center px-2 py-4">
                             <div class="flex h-6 items-center">
@@ -62,7 +67,9 @@
                                 this.noColor = false;
                                 this.canAdvance = false;
                                 this.selectedColor = '#000000';
-                                this.$nextTick(() => {})
+                                this.$nextTick(() => {
+                                    this.$refs.audio.load();
+                                })
                             });
                             this.picker = new window.iro.ColorPicker('#picker', {
                                 borderWidth: 1,
@@ -77,6 +84,7 @@
                                 this.canAdvance = !!nc || this.selectedColor !== null;
                             });
                             this.updateDisplay();
+                            this.$refs.audio.load();
                         },
                         updateDisplay() {
                             this.progress = Math.round(Math.min(100, (this.currentIndex / this.totalStimuli) *

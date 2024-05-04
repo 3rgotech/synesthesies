@@ -33,4 +33,14 @@ enum Perception: string implements HasLabel
             self::SOUND => 'fas-volume-high',
         };
     }
+
+    public function isVisual(): bool
+    {
+        return in_array($this, [self::LETTER, self::FRENCH_WORD, self::FOREIGN_WORD, self::DIGIT, self::DAY_OF_WEEK]);
+    }
+
+    public function isAudio(): bool
+    {
+        return in_array($this, [self::MUSIC, self::HUMAN_VOICE, self::SOUND]);
+    }
 }

@@ -8,7 +8,9 @@ use App\Filament\Resources\TestResource\Pages;
 use App\Filament\Resources\TestResource\RelationManagers;
 use App\Models\Test;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn\IconColumnSize;
@@ -35,10 +37,7 @@ class TestResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->label('Titre')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('duration')
-                    ->label('Durée')
-                    ->required()
+                    ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
                     ->label('Description')
@@ -57,24 +56,52 @@ class TestResource extends Resource
                 Forms\Components\Select::make('perception')
                     ->label('Perception')
                     ->options(Perception::class)
+                    ->reactive()
                     ->required(),
                 Forms\Components\Select::make('response')
                     ->label('Réponse')
                     ->options(Response::class)
                     ->required(),
-                Forms\Components\TextInput::make('stimuli')
+                Forms\Components\TextInput::make('duration')
+                    ->label('Durée estimée')
                     ->required()
-                    ->columnSpanFull()
-                    ->afterStateHydrated(function ($component, $state) {
-                        $component->state(implode(', ', $state));
-                    })
-                    ->dehydrateStateUsing(fn (string $state) => array_filter(array_map('trim', explode(',', $state))))
-                    ->helperText("Séparer les stimuli par des virgules"),
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('repetitions')
                     ->label('Nombre de répétitions des stimuli')
                     ->numeric()
                     ->minValue(1)
                     ->required(),
+                Forms\Components\Repeater::make('stimuli')
+                    ->label('Stimuli')
+                    ->simple(
+                        Forms\Components\TextInput::make('stimuli')
+                            ->required()
+                            ->columnSpanFull()
+                    )
+                    // ->afterStateHydrated(function ($component, $state) {
+                    //     $component->state(implode(', ', $state ?? []));
+                    // })
+                    // ->dehydrateStateUsing(fn (string $state) => array_filter(array_map('trim', explode(',', $state))))
+                    ->helperText(function (Get $get) {
+                        $perception = Perception::tryFrom($get('perception'));
+                        if ($perception?->isVisual()) {
+                            return "Séparer les stimuli par des virgules";
+                        }
+                        if ($perception?->isAudio()) {
+                            return "Saisir les noms à attribuer à chaque fichier audio, séparés par des virgules et dans le même ordre que les fichiers";
+                        }
+                    })
+                    ->addActionLabel('Ajouter un stimulus'),
+                SpatieMediaLibraryFileUpload::make('audio_files')
+                    ->label('Fichiers audio')
+                    ->collection('audio_files')
+                    ->multiple()
+                    ->reorderable()
+                    ->downloadable()
+                    ->preserveFilenames()
+                    ->acceptedFileTypes(['audio/wav', 'audio/x-wav', 'audio/mp3', 'audio/mpeg'])
+                    ->visible(fn (Get $get) => Perception::tryFrom($get('perception'))?->isAudio())
+                    ->helperText('Les fichiers sont réordonnables avec un glisser-déposer'),
             ]);
     }
 

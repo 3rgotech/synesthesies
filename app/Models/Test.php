@@ -7,10 +7,13 @@ use App\Enum\Response;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Test extends Model
+class Test extends Model implements HasMedia
 {
     use HasFactory;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -52,6 +55,9 @@ class Test extends Model
             }
             if ($this->perception === Perception::DAY_OF_WEEK) {
                 return 'word-color-test';
+            }
+            if ($this->perception === Perception::HUMAN_VOICE) {
+                return 'audio-color-test';
             }
         }
         return null;
