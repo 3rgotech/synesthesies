@@ -70,6 +70,11 @@ class TestResource extends Resource
                     })
                     ->dehydrateStateUsing(fn (string $state) => array_filter(array_map('trim', explode(',', $state))))
                     ->helperText("Séparer les stimuli par des virgules"),
+                Forms\Components\TextInput::make('repetitions')
+                    ->label('Nombre de répétitions des stimuli')
+                    ->numeric()
+                    ->minValue(1)
+                    ->required(),
             ]);
     }
 
@@ -84,19 +89,28 @@ class TestResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('title')
                     ->label('Titre')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->label('Description')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('duration')
                     ->label('Durée')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('perception')
                     ->label('Perception')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('response')
                     ->label('Réponse')
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('repetitions')
+                    ->label('Nombre de répétitions')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Création')
                     ->dateTime()

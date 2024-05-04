@@ -25,6 +25,7 @@ class Test extends Model
         'perception',
         'response',
         'stimuli',
+        'repetitions',
     ];
 
     /**

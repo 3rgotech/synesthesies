@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\SubjectTest;
 use App\Models\Test;
 use App\Utils\Math;
 use Illuminate\Support\Collection;
@@ -11,10 +12,9 @@ use Spatie\Color\Hex;
 
 class GraphemeColorTest extends Component
 {
-    public int $REPETITIONS = 2;
     public Test $test;
+    public ?SubjectTest $results;
     public ?array $stimuli = null;
-    public ?array $results = null;
     public ?float $totalScore = null;
 
     public int $totalStimuli = 0;
@@ -25,8 +25,9 @@ class GraphemeColorTest extends Component
     {
         $this->test = Test::find($testId);
         $existingData = $this->test->testData()->where('subject_id', Auth::guard('subjects')->id())->get()->first();
+        $this->results = $existingData;
         if ($existingData === null) {
-            $this->stimuli = Collection::times($this->REPETITIONS, fn () => $this->test->stimuli)
+            $this->stimuli = Collection::times($this->test->repetitions, fn () => $this->test->stimuli)
                 ->flatten()
                 ->shuffle()
                 ->map(fn ($s) => ['stimulus' => $s, 'value' => null, 'duration' => null])
@@ -34,9 +35,6 @@ class GraphemeColorTest extends Component
             $this->currentIndex = 0;
             $this->totalStimuli = count($this->stimuli);
             $this->stimulus = strval($this->stimuli[$this->currentIndex]['stimulus']);
-        } else {
-            $this->results = $existingData->data;
-            $this->totalScore = collect($existingData->data)->pluck('score')->avg();
         }
     }
 
@@ -46,17 +44,13 @@ class GraphemeColorTest extends Component
         $this->stimuli[$this->currentIndex]['duration'] = $duration;
         $this->currentIndex = ($this->currentIndex + 1);
 
-        dump($this->stimuli);
-
         if ($this->currentIndex >= $this->totalStimuli) {
             // store results
             $data = $this->generateData();
-            $this->test->testData()->create([
+            $this->results = $this->test->testData()->create([
                 'subject_id' => Auth::guard('subjects')->id(),
                 'data'       => $data
             ]);
-            $this->results = $data;
-            $this->totalScore = collect($data)->pluck('score')->avg();
         } else {
             $this->stimulus = strval($this->stimuli[$this->currentIndex]['stimulus']);
         }
@@ -115,7 +109,7 @@ class GraphemeColorTest extends Component
 
     protected function computeScore(array $responses): float
     {
-        // If at least one item is an array, do the score computation on each column, then average the results
+        // If at least one item is an array (distinct colors), do the score computation on each column, then average the results
         if (in_array(true, array_filter($responses, fn ($item) => is_array($item) && is_array($item[0])))) {
             $arraySize = count($responses[0]);
             return collect(range(0, $arraySize - 1))
