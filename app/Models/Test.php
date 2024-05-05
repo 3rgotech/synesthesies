@@ -72,6 +72,9 @@ class Test extends Model implements HasMedia
             if ($this->perception === Perception::DAY_OF_WEEK) {
                 return 'word-color-results';
             }
+            if ($this->perception === Perception::HUMAN_VOICE) {
+                return 'audio-color-results';
+            }
         }
         return null;
     }

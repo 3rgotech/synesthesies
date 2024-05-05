@@ -85,11 +85,12 @@ class AudioColorTest extends Component
     {
         $data = collect($this->stimuli)
             ->reduce(function ($carry, $item) {
-                if (!array_key_exists($item['stimulus'], $carry)) {
-                    $carry[$item['stimulus']] = ['responses' => [], 'durations' => []];
+                $key = $item['stimulus']['label'];
+                if (!array_key_exists($key, $carry)) {
+                    $carry[$key] = ['responses' => [], 'durations' => []];
                 }
-                $carry[$item['stimulus']]['responses'][] = $this->hexToRgb($item['value']);
-                $carry[$item['stimulus']]['duration'][] = $item['duration'];
+                $carry[$key]['responses'][] = $this->hexToRgb($item['value']);
+                $carry[$key]['duration'][] = $item['duration'];
                 return $carry;
             }, []);
         return array_map(function ($item) {

@@ -8,7 +8,7 @@
                 <div class="flex flex-row items-stretch border border-gray-400 rounded-xl divide-x divide-gray-400">
                     <div class="flex flex-col items-stretch divide-y divide-gray-400">
                         <div class="flex-1 flex flex-col justify-center items-center px-8">
-                            <span class="block font-display font-light text-lg border-gray-600" x-html="stimulus.label"
+                            <span class="block font-display font-light text-xl border-gray-600" x-html="stimulus.label"
                                 x-bind:style="{ color: noColor ? '#000000' : selectedColor }">
                             </span>
                             <audio controls preload x-ref="audio">
@@ -110,6 +110,6 @@
             </script>
         @endscript
     @else
-        <x-word-color-results :test="$this->test" :results="$results" :backUrl="route('test-list')" />
+        <x-audio-color-results :test="$this->test" :results="$results" :backUrl="route('test-list')" />
     @endif
 </div>
