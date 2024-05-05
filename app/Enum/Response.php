@@ -13,10 +13,19 @@ enum Response: string implements HasLabel
     case SCENT = 'scent';
     case PAIN  = 'pain';
     case TOUCH = 'touch';
+    case SPACE = 'space';
 
     public function getLabel(): string
     {
         return __('enums.response.' . $this->value);
+    }
+
+    public function userSelectable(): bool
+    {
+        if ($this === self::SPACE) {
+            return false;
+        }
+        return true;
     }
 
     public static function values(): array
@@ -24,7 +33,7 @@ enum Response: string implements HasLabel
         return collect(self::cases())->map(fn (self $item) => $item->value)->all();
     }
 
-    public function getIcon(): string
+    public function getIcon(): ?string
     {
         return match ($this) {
             self::COLOR => 'fas-palette',
@@ -32,8 +41,9 @@ enum Response: string implements HasLabel
             self::MUSIC => 'fas-music',
             self::SHAPE => 'fas-shapes',
             self::SCENT => 'fas-spray-can-sparkles',
-            self::PAIN => 'fas-kit-medical',
+            self::PAIN  => 'fas-kit-medical',
             self::TOUCH => 'fas-fingerprint',
+            default     => null
         };
     }
 }

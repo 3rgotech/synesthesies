@@ -40,6 +40,7 @@ return [
         'music'        => 'Musique',
         'human_voice'  => 'Voix humaine',
         'sound'        => 'Bruit',
+        'month'        => 'Mois',
     ],
     'response' => [
         'color' => 'Couleur',
@@ -49,5 +50,6 @@ return [
         'scent' => 'Odeur',
         'pain'  => 'Douleur',
         'touch' => 'Toucher',
+        'space' => 'Espace',
     ]
 ];

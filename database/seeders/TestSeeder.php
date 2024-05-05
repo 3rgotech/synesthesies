@@ -74,6 +74,20 @@ class TestSeeder extends Seeder
                             ? ['A Pascal', 'OU Cynthia']
                             : ['A Cynthia', 'A Pascal', 'I Cynthia', 'I Julien', 'OU Cynthia', 'OU Julien']
                     ),
+                ],
+                [
+                    'title'        => 'Positionnement spatial des mois',
+                    'description'  => 'Test de positionnement spatial des mois',
+                    'introduction' => '<p>Dans ce test, vous devrez choisir la localisation spatiale de différents mois de l’année. Projetez votre représentation dans l’espace de votre écran. Vous devrez tout d’abord positionnez ces mois tous ensemble puis ensuite la position de chaque mois vous sera demandé plusieurs fois.</p>',
+                    'duration'     => '15 minutes',
+                    'icon'         => 'far-calendar-alt',
+                    'perception'   => Perception::MONTH,
+                    'response'     => Response::SPACE,
+                    'stimuli'      => json_encode(
+                        App::isLocal()
+                            ? ['Janvier', 'Février']
+                            : ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+                    ),
                 ]
             ],
             ['perception', 'response'],
