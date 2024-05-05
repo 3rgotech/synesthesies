@@ -53,6 +53,7 @@ class SubjectTestResource extends Resource
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->response->getLabel())
                     ->required(),
                 TestResults::make('questions')
+                    ->label('Réponses')
                     ->columnSpanFull(),
             ]);
     }

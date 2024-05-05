@@ -44,6 +44,7 @@ class LikertTestSubjectResource extends Resource
                     ->label('Test')
                     ->relationship('likertTest', 'title'),
                 LikertTestResults::make('questions')
+                    ->label('Réponses')
                     ->columnSpanFull(),
             ]);
     }

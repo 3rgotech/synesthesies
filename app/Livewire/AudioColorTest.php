@@ -40,7 +40,7 @@ class AudioColorTest extends Component
             }
             $this->stimuli = $allStimuli
                 ->shuffle()
-                ->map(fn ($s) => ['stimulus' => $s, 'value' => null, 'duration' => null])
+                ->map(fn ($s) => ['stimulus' => $s, 'value' => null, 'duration' => null, 'evolutive' => null, 'shape' => null])
                 ->all();
             $this->currentIndex = 0;
             $this->totalStimuli = count($this->stimuli);
@@ -48,10 +48,12 @@ class AudioColorTest extends Component
         }
     }
 
-    public function storeValue(string|array|null $value, int $duration)
+    public function storeValue(string|array|null $value, int $duration, string $evolutive, string $shape)
     {
         $this->stimuli[$this->currentIndex]['value']    = $value;
         $this->stimuli[$this->currentIndex]['duration'] = $duration;
+        $this->stimuli[$this->currentIndex]['evolutive'] = $evolutive;
+        $this->stimuli[$this->currentIndex]['shape'] = $shape;
         $this->currentIndex = ($this->currentIndex + 1);
 
         if ($this->currentIndex >= $this->totalStimuli) {
@@ -87,10 +89,12 @@ class AudioColorTest extends Component
             ->reduce(function ($carry, $item) {
                 $key = $item['stimulus']['label'];
                 if (!array_key_exists($key, $carry)) {
-                    $carry[$key] = ['responses' => [], 'durations' => []];
+                    $carry[$key] = ['responses' => [], 'durations' => [], 'evolutive' => [], 'shape' => []];
                 }
                 $carry[$key]['responses'][] = $this->hexToRgb($item['value']);
                 $carry[$key]['duration'][] = $item['duration'];
+                $carry[$key]['evolutive'][] = $item['evolutive'];
+                $carry[$key]['shape'][] = $item['shape'];
                 return $carry;
             }, []);
         return array_map(function ($item) {

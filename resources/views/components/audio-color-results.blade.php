@@ -14,7 +14,7 @@
             @foreach ($results->data as $grapheme => $data)
                 @if (filled($grapheme))
                     <div @class([
-                        'grid divide-x divide-gray-600 border border-gray-600 items-stretch' => true,
+                        'my-1 grid border border-gray-600 items-stretch' => true,
                         'grid-cols-3' => $repetitions === 2,
                         'grid-cols-4' => $repetitions === 3,
                         'grid-cols-5' => $repetitions === 4,
@@ -23,9 +23,8 @@
                         'grid-cols-8' => $repetitions === 7,
                     ])>
                         @foreach ($data['responses'] as $item)
-                            {{-- @if (strlen($grapheme) > 1) --}}
                             <span @class([
-                                'block font-display font-semibold text-3xl text-center px-2' => true,
+                                'block font-display font-semibold text-3xl text-center px-2 border-r border-gray-600' => true,
                                 'bg-white' => blank($backUrl),
                             ])>
                                 @php($color = $item ?? [0, 0, 0])
@@ -36,13 +35,24 @@
                             </span>
                         @endforeach
 
-                        <span class="flex items-center justify-center text-xl">
+                        <span class="row-span-3 flex items-center justify-center text-xl">
                             @if (is_null($data['score']))
                                 &oslash;
                             @else
                                 {{ round($data['score'], 2) }}
                             @endif
                         </span>
+
+                        @foreach ($data['evolutive'] as $item)
+                            <span class="border-r border-t border-gray-600 block font-display text-xl text-center px-2">
+                                {{ __('public.test.evolutive_' . $item) }}
+                            </span>
+                        @endforeach
+                        @foreach ($data['shape'] as $item)
+                            <span class="border-r border-t border-gray-600 block font-display text-xl text-center px-2">
+                                {{ __('public.test.shape.' . $item) }}
+                            </span>
+                        @endforeach
                     </div>
                 @endif
             @endforeach
