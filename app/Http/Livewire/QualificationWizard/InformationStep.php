@@ -13,10 +13,10 @@ class InformationStep extends StepComponent
     public int $birthYear;
     public string $citizenship;
     public string $liveInFrance;
-    public string $region;
+    public ?string $region;
     public string $language;
     public ?string $email = null;
-    public bool $wantsToBeInformed;
+    public bool $wantsToBeInformed = false;
 
     public function submit()
     {
