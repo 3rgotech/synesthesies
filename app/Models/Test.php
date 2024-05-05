@@ -56,7 +56,7 @@ class Test extends Model implements HasMedia
             if ($this->perception === Perception::DAY_OF_WEEK) {
                 return 'word-color-test';
             }
-            if ($this->perception === Perception::HUMAN_VOICE) {
+            if ($this->perception === Perception::HUMAN_VOICE || $this->perception === Perception::MUSIC || $this->perception === Perception::SOUND) {
                 return 'audio-color-test';
             }
         }
@@ -72,7 +72,7 @@ class Test extends Model implements HasMedia
             if ($this->perception === Perception::DAY_OF_WEEK) {
                 return 'word-color-results';
             }
-            if ($this->perception === Perception::HUMAN_VOICE) {
+            if ($this->perception === Perception::HUMAN_VOICE || $this->perception === Perception::MUSIC || $this->perception === Perception::SOUND) {
                 return 'audio-color-results';
             }
         }

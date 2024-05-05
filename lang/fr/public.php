@@ -83,7 +83,7 @@ return [
 
     'list' => [
         'synesthesies'             => 'Synesthésies',
-        'synesthesies_description' => 'Ces tests sont destinés à évaluer vos synesthésies en fonction des éléments que vous avez mentionnés dans le formulaire de qualification.',
+        'synesthesies_description' => 'Ces tests nous permettent d’évaluer de façon objective certaines formes de synesthésie. Un des critères utilisés est la consistance des associations dans le temps. Après chaque test, vous verrez votre taux de consistance pour chaque type d’association. Les personnes synesthètes obtiennent un score plus faible, soit un taux élevé de consistance. Attention il n’est pas possible de refaire un test.',
         'likert'                   => 'Personnalité',
         'likert_description'       => 'Ces tests sont destinés à évaluer votre personnalité afin de nous fournir le contexte nécessaire lors de l\'analyse de vos résultats.',
         'empty'                    => 'Aucun test disponible pour le moment.',
