@@ -25,11 +25,19 @@ class TestListController extends Controller
 
     public function getTests(): array
     {
-        $subjectSynesthesies = Auth::guard('subjects')->user()->synesthesies;
+        $subject = Auth::guard('subjects')->user();
+        $subjectSynesthesies = $subject->synesthesies;
         return Test::with('testData')
             ->get()
-            ->filter(fn (Test $test) => array_key_exists($test->perception->value, $subjectSynesthesies)
-                && in_array($test->response->value, $subjectSynesthesies[$test->perception->value]))
+            ->filter(
+                fn (Test $test) => (
+                    array_key_exists($test->perception->value, $subjectSynesthesies)
+                    && in_array($test->response->value, $subjectSynesthesies[$test->perception->value])
+                )
+                    || (
+                        $test->response === Response::SPACE && in_array($test->perception->value, $subject->spatial_synesthesies)
+                    )
+            )
             ->filter(fn (Test $test) => $test->getTestComponent() !== null)
             ->map(fn (Test $test) => $this->toArray($test))
             ->all();

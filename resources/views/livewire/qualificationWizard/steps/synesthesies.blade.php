@@ -9,49 +9,54 @@
             </label>
         </div>
         @foreach (\App\Enum\Perception::cases() as $perception)
-            <div class="sm:col-span-6 pb-2 flex flex-col items-stretch" wire:key="perception-{{ $perception->value }}">
-                <div class="grid grid-cols-2 items-center gap-x-4">
-                    <label for=""
-                        class=" text-sm font-medium leading-6 text-gray-900 flex items-center space-x-2">
-                        @svg($perception->getIcon(), 'size-6')
-                        <span>
-                            {{ __('public.qualification.values.perception.' . $perception->value) }}
-                        </span>
-                    </label>
-                    <div class="relative flex items-center space-x-8">
-                        @foreach (['yes', 'no'] as $value)
-                            <div class="relative flex items-center">
-                                <div class="flex h-6 items-center">
-                                    <input id="perception-{{ $perception->value }}-{{ $value }}"
-                                        name="-{{ $perception->value }}"
-                                        x-model="synesthesies_bool.{{ $perception->value }}" type="radio"
-                                        value="{{ $value }}"
-                                        class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
+            @if ($perception->userSelectable())
+                <div class="sm:col-span-6 pb-2 flex flex-col items-stretch"
+                    wire:key="perception-{{ $perception->value }}">
+                    <div class="grid grid-cols-2 items-center gap-x-4">
+                        <label for=""
+                            class=" text-sm font-medium leading-6 text-gray-900 flex items-center space-x-2">
+                            @svg($perception->getIcon(), 'size-6')
+                            <span>
+                                {{ __('public.qualification.values.perception.' . $perception->value) }}
+                            </span>
+                        </label>
+                        <div class="relative flex items-center space-x-8">
+                            @foreach (['yes', 'no'] as $value)
+                                <div class="relative flex items-center">
+                                    <div class="flex h-6 items-center">
+                                        <input id="perception-{{ $perception->value }}-{{ $value }}"
+                                            name="-{{ $perception->value }}"
+                                            x-model="synesthesies_bool.{{ $perception->value }}" type="radio"
+                                            value="{{ $value }}"
+                                            class="h-4 w-4 rounded-full border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                    </div>
+                                    <div class="ml-3 text-sm leading-6">
+                                        <label for="perception-{{ $perception->value }}-{{ $value }}"
+                                            class="font-medium text-gray-700">{{ __(ucfirst($value)) }}</label>
+                                    </div>
                                 </div>
-                                <div class="ml-3 text-sm leading-6">
-                                    <label for="perception-{{ $perception->value }}-{{ $value }}"
-                                        class="font-medium text-gray-700">{{ __(ucfirst($value)) }}</label>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 px-2 mt-2"
+                        x-show="synesthesies_bool.{{ $perception->value }} === 'yes'" x-transition.duration.500ms>
+                        @foreach (\App\Enum\Response::cases() as $response)
+                            @if ($response->userSelectable())
+                                <div class="flex items-center pl-2 space-x-3 sm:pl-0">
+                                    <input id="perception-{{ $perception->value }}-response-{{ $response->value }}"
+                                        value="{{ $response->value }}" name="responses"
+                                        x-model="synesthesies.{{ $perception->value }}" type="checkbox"
+                                        x-on:change="synesthesies.{{ $perception->value }} = $event.target.checked ? [...(synesthesies.{{ $perception->value }}.filter(v => v !== 'none')), '{{ $response->value }}'] : synesthesies.{{ $perception->value }}.filter(v => v!== '{{ $response->value }}')"
+                                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+                                    @svg($response->getIcon(), 'size-4')
+                                    <label for="perception-{{ $perception->value }}-response-{{ $response->value }}"
+                                        class="text-sm leading-6 font-medium text-gray-700">{{ __('enums.response.' . $response->value) }}</label>
                                 </div>
-                            </div>
+                            @endif
                         @endforeach
                     </div>
                 </div>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 px-2 mt-2"
-                    x-show="synesthesies_bool.{{ $perception->value }} === 'yes'" x-transition.duration.500ms>
-                    @foreach (\App\Enum\Response::cases() as $response)
-                        <div class="flex items-center pl-2 space-x-3 sm:pl-0">
-                            <input id="perception-{{ $perception->value }}-response-{{ $response->value }}"
-                                value="{{ $response->value }}" name="responses"
-                                x-model="synesthesies.{{ $perception->value }}" type="checkbox"
-                                x-on:change="synesthesies.{{ $perception->value }} = $event.target.checked ? [...(synesthesies.{{ $perception->value }}.filter(v => v !== 'none')), '{{ $response->value }}'] : synesthesies.{{ $perception->value }}.filter(v => v!== '{{ $response->value }}')"
-                                class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
-                            @svg($response->getIcon(), 'size-4')
-                            <label for="perception-{{ $perception->value }}-response-{{ $response->value }}"
-                                class="text-sm leading-6 font-medium text-gray-700">{{ __('enums.response.' . $response->value) }}</label>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+            @endif
         @endforeach
         @error('synesthesies')
             <p class="sm:col-span-6 mt-2 text-sm text-red-600" id="synesthesies-error">{{ $message }}</p>

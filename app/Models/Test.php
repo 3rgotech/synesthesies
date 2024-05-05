@@ -23,6 +23,7 @@ class Test extends Model implements HasMedia
     protected $fillable = [
         'title',
         'description',
+        'introduction',
         'icon',
         'duration',
         'perception',
@@ -60,6 +61,9 @@ class Test extends Model implements HasMedia
                 return 'audio-color-test';
             }
         }
+        if ($this->response === Response::SPACE) {
+            return 'space-test';
+        }
         return null;
     }
 
@@ -75,6 +79,9 @@ class Test extends Model implements HasMedia
             if ($this->perception === Perception::HUMAN_VOICE || $this->perception === Perception::MUSIC || $this->perception === Perception::SOUND) {
                 return 'audio-color-results';
             }
+        }
+        if ($this->response === Response::SPACE) {
+            return 'space-results';
         }
         return null;
     }

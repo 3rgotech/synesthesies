@@ -43,8 +43,14 @@ class Math
 
         // Compute the euclidian distance between $a and $b (either 2 or 3 dimensions points)
         $sum = 0;
-        for ($i = 0; $i < count($a); $i++) {
-            $sum += pow(($a[$i] - $b[$i]), 2);
+        if (array_is_list($a)) {
+            for ($i = 0; $i < count($a); $i++) {
+                $sum += pow(($a[$i] - $b[$i]), 2);
+            }
+        } else {
+            foreach (array_keys($a) as $key) {
+                $sum += pow(($a[$key] - $b[$key]), 2);
+            }
         }
         return sqrt($sum);
     }

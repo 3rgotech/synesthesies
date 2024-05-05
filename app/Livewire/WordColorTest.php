@@ -79,7 +79,7 @@ class WordColorTest extends Component
                     $carry[$item['stimulus']] = ['responses' => [], 'durations' => []];
                 }
                 $carry[$item['stimulus']]['responses'][] = $this->hexToRgb($item['value']);
-                $carry[$item['stimulus']]['duration'][] = $item['duration'];
+                $carry[$item['stimulus']]['durations'][] = $item['duration'];
                 return $carry;
             }, []);
         return array_map(function ($item) {

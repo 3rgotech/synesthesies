@@ -92,7 +92,7 @@ class AudioColorTest extends Component
                     $carry[$key] = ['responses' => [], 'durations' => [], 'evolutive' => [], 'shape' => []];
                 }
                 $carry[$key]['responses'][] = $this->hexToRgb($item['value']);
-                $carry[$key]['duration'][] = $item['duration'];
+                $carry[$key]['durations'][] = $item['duration'];
                 $carry[$key]['evolutive'][] = $item['evolutive'];
                 $carry[$key]['shape'][] = $item['shape'];
                 return $carry;

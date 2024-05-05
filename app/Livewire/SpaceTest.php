@@ -10,14 +10,16 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Spatie\Color\Hex;
 
-class GraphemeColorTest extends Component
+class SpaceTest extends Component
 {
     public Test $test;
     public ?SubjectTest $results;
     public ?array $stimuli = null;
     public ?float $totalScore = null;
 
+    public ?array $initialSetup = null;
     public int $totalStimuli = 0;
+    public ?array $allStimuli = null;
     public ?string $stimulus = null;
     public ?int $currentIndex = null;
 
@@ -27,7 +29,8 @@ class GraphemeColorTest extends Component
         $existingData = $this->test->testData()->where('subject_id', Auth::guard('subjects')->id())->get()->first();
         $this->results = $existingData;
         if ($existingData === null) {
-            $this->stimuli = Collection::times($this->test->repetitions, fn () => $this->test->stimuli)
+            $this->allStimuli = $this->test->stimuli;
+            $this->stimuli = Collection::times(1, fn () => $this->test->stimuli)
                 ->flatten()
                 ->shuffle()
                 ->map(fn ($s) => ['stimulus' => $s, 'value' => null, 'duration' => null])
@@ -38,7 +41,15 @@ class GraphemeColorTest extends Component
         }
     }
 
-    public function storeValue(string|array|null $value, int $duration)
+    public function storeInitialSetup(array $values, int $duration)
+    {
+        $this->initialSetup = [
+            'responses' => $values,
+            'duration'  => $duration
+        ];
+    }
+
+    public function storeValue(array $value, int $duration)
     {
         $this->stimuli[$this->currentIndex]['value']    = $value;
         $this->stimuli[$this->currentIndex]['duration'] = $duration;
@@ -56,41 +67,28 @@ class GraphemeColorTest extends Component
         }
     }
 
-    public function render()
-    {
-        return view('livewire.grapheme-color-test');
-    }
-
-    protected function hexToRgb(string|array|null $hex): ?array
-    {
-        if (is_null($hex)) {
-            return null;
-        } else if (is_array($hex)) {
-            return collect($hex)
-                ->map(fn ($item) => $this->hexToRgb($item))
-                ->all();
-        } else {
-            $rgb = Hex::fromString($hex)->toRgb();
-            return [$rgb->red(), $rgb->green(), $rgb->blue()];
-        }
-    }
-
     protected function generateData(): array
     {
         $data = collect($this->stimuli)
             ->reduce(function ($carry, $item) {
                 if (!array_key_exists($item['stimulus'], $carry)) {
                     $carry[$item['stimulus']] = ['responses' => [], 'durations' => []];
+
+                    // Get the data from the initial setup
+                    if (array_key_exists($item['stimulus'], $this->initialSetup['responses'])) {
+                        $carry[$item['stimulus']]['responses'][] = $this->initialSetup['responses'][$item['stimulus']];
+                        $carry[$item['stimulus']]['durations'][] = $this->initialSetup['duration'] / count($this->initialSetup['responses']);
+                    }
                 }
-                $carry[$item['stimulus']]['responses'][] = $this->hexToRgb($item['value']);
+
+                $carry[$item['stimulus']]['responses'][] = $item['value'];
                 $carry[$item['stimulus']]['durations'][] = $item['duration'];
                 return $carry;
             }, []);
+        dump($data);
         return array_map(function ($item) {
             if (in_array(null, $item['responses'])) {
                 // User has selected "no color" at least once
-                $item['score'] = null;
-            } else if (!$this->isValidForDistinctColors($item['responses'])) {
                 $item['score'] = null;
             } else {
                 $item['score'] = $this->computeScore($item['responses']);
@@ -99,29 +97,17 @@ class GraphemeColorTest extends Component
         }, $data);
     }
 
-    protected function isValidForDistinctColors(array $responses): bool
-    {
-        // If at least one item is an array, every item must be an array to return true, otherwise return false
-        $isArray = array_filter($responses, fn ($item) => is_array($item));
-        return in_array(true, $isArray)
-            && !in_array(false, $isArray);
-    }
-
     protected function computeScore(array $responses): float
     {
-        // If at least one item is an array (distinct colors), do the score computation on each column, then average the results
-        if (in_array(true, array_filter($responses, fn ($item) => is_array($item) && is_array($item[0])))) {
-            $arraySize = count($responses[0]);
-            return collect(range(0, $arraySize - 1))
-                ->map(fn ($i) => collect($responses)->map(fn ($item) => $item[$i]))
-                ->map(fn ($item) => $this->computeScore($item->all()))
-                ->avg();
-        } else {
-            return collect(Math::combinations($responses, 2))
-                ->map(function ($combination) {
-                    return Math::distance(...$combination);
-                })
-                ->avg();
-        }
+        return collect(Math::combinations($responses, 2))
+            ->map(function ($combination) {
+                return Math::distance(...$combination);
+            })
+            ->avg();
+    }
+
+    public function render()
+    {
+        return view('livewire.space-test');
     }
 }
