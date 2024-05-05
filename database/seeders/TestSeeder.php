@@ -76,6 +76,20 @@ class TestSeeder extends Seeder
                     ),
                 ],
                 [
+                    'title'        => 'Positionnement spatial des chiffres',
+                    'description'  => 'Test de positionnement spatial des chiffres',
+                    'introduction' => '<p>Dans ce test, vous devrez choisir la localisation spatiale de différents chiffres (de 0 à 100, 20 chiffres en tout à positionner). Projetez votre représentation dans l’espace de votre écran. Vous devrez tout d’abord positionnez ces chiffres tous ensemble puis ensuite la position de chaque chiffre vous sera demandé plusieurs fois.</p>',
+                    'duration'     => '15 minutes',
+                    'icon'         => 'far-calendar-alt',
+                    'perception'   => Perception::DIGIT,
+                    'response'     => Response::SPACE,
+                    'stimuli'      => json_encode(
+                        App::isLocal()
+                            ? ['0', '3', '20', '100']
+                            : ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
+                    ),
+                ],
+                [
                     'title'        => 'Positionnement spatial des mois',
                     'description'  => 'Test de positionnement spatial des mois',
                     'introduction' => '<p>Dans ce test, vous devrez choisir la localisation spatiale de différents mois de l’année. Projetez votre représentation dans l’espace de votre écran. Vous devrez tout d’abord positionnez ces mois tous ensemble puis ensuite la position de chaque mois vous sera demandé plusieurs fois.</p>',
