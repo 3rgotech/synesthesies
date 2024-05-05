@@ -40,9 +40,12 @@ class TestResource extends Resource
                     ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('description')
-                    ->label('Description')
+                    ->label('Description sur la liste')
                     ->required()
                     ->maxLength(255)
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('introduction')
+                    ->label('Paragraphe d\'Introduction')
                     ->columnSpanFull(),
                 IconPicker::make('icon')
                     ->label('Icône')

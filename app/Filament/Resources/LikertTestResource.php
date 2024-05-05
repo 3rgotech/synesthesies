@@ -35,14 +35,13 @@ class LikertTestResource extends Resource
                     ->label('Titre')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('duration')
-                    ->label('Durée')
-                    ->required()
-                    ->maxLength(255),
                 Forms\Components\TextInput::make('description')
-                    ->label('Description')
+                    ->label('Description sur la liste')
                     ->required()
                     ->maxLength(255)
+                    ->columnSpanFull(),
+                Forms\Components\RichEditor::make('introduction')
+                    ->label('Paragraphe d\'Introduction')
                     ->columnSpanFull(),
                 IconPicker::make('icon')
                     ->label('Icône')
@@ -53,9 +52,10 @@ class LikertTestResource extends Resource
                     ])
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\RichEditor::make('introduction')
-                    ->label('Description')
-                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('duration')
+                    ->label('Durée')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\Repeater::make('scale')
                     ->label('Echelle de réponses')
                     ->columnSpanFull()

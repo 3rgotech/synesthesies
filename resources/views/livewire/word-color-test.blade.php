@@ -1,12 +1,13 @@
 <div class="flex-1 flex flex-col items-stretch">
     @if (is_null($results))
         <div class="flex-1 flex flex-col justify-center items-stretch space-y-8 mx-auto" x-data="grapheme">
-            <div class="flex flex-col items-stretch">
+            <div class="flex flex-col items-stretch space-y-8">
                 <h1 class="text-bold text-4xl text-center">
                     {{ $this->test->title }}
                 </h1>
+                {!! $this->test->introduction !!}
                 <div class="flex flex-row items-stretch border border-gray-400 rounded-xl divide-x divide-gray-400">
-                    <div class="flex flex-col items-stretch divide-y divide-gray-400">
+                    <div class="flex-1 flex flex-col items-stretch divide-y divide-gray-400">
                         <div class="flex-1 flex justify-center items-center px-8">
                             <span class="block font-display font-light text-[12rem] border-gray-600" x-html="stimulus"
                                 x-bind:style="{ color: noColor ? '#000000' : selectedColor }">
@@ -23,7 +24,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="picker" class="p-8" x-ignore wire:ignore>
+                    <div id="picker" class="flex-1 flex justify-center p-8" x-ignore wire:ignore>
                     </div>
                 </div>
             </div>
