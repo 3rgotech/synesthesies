@@ -11,7 +11,7 @@
         <ul role="list" class="flex flex-wrap justify-center gap-6 px-4">
             @forelse ($tests as $test)
                 <li
-                    class="basis-full sm:basis-4/12 md:basis-3/12 lg:basis-2/12 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+                    class="basis-full sm:basis-4/12 md:basis-3/12 xl:basis-2/12 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
                     <div class="flex flex-1 flex-col p-4">
                         <div
                             class="mx-auto h-32 w-32 flex-shrink-0 rounded-full bg-slate-300 text-gray-700 flex items-center justify-center">
@@ -69,7 +69,7 @@
         <ul role="list" class="flex flex-wrap justify-center gap-6 px-4">
             @forelse ($likert_tests as $test)
                 <li
-                    class="basis-full sm:basis-4/12 md:basis-3/12 lg:basis-2/12 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
+                    class="basis-full sm:basis-4/12 md:basis-3/12 xl:basis-2/12 flex flex-col divide-y divide-gray-200 rounded-lg bg-white text-center shadow">
                     <div class="flex flex-1 flex-col p-4">
                         <div
                             class="mx-auto h-32 w-32 flex-shrink-0 rounded-full bg-slate-300 text-gray-700 flex items-center justify-center">
