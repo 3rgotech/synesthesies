@@ -56,7 +56,7 @@
     </div>
     {{ $slot }}
 
-    <footer class="md:fixed md:bottom-0 md:inset-x-0 text-center py-2 px-4">
+    <footer class="md:fixed md:bottom-0 md:inset-x-0 text-center py-2 px-4 bg-slate-100">
         <small class="text-gray-500">
             Copyright &copy; CERPPS - Université Toulouse 2 Jean Jaurès 2023-{{ date('Y') }}
             &middot;
