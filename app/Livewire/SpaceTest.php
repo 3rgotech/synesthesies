@@ -85,7 +85,7 @@ class SpaceTest extends Component
                 $carry[$item['stimulus']]['durations'][] = $item['duration'];
                 return $carry;
             }, []);
-        dump($data);
+
         return array_map(function ($item) {
             if (in_array(null, $item['responses'])) {
                 // User has selected "no color" at least once
