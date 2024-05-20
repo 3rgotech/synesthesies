@@ -63,10 +63,8 @@
                         },
                         setupKonva(items) {
                             if (this.stage !== null) {
-                                console.log('clear');
                                 this.itemLayer.find('Text').forEach((item) => item.destroy());
                             } else {
-                                console.log('create');
                                 this.stage = new window.Konva.Stage({
                                     container: 'stage',
                                     width: 800,

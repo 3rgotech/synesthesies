@@ -1,7 +1,7 @@
 <div @class([
     'flex-1 flex flex-col justify-between items-stretch mx-auto w-full' => true,
     'sm:max-h-[50vh]' => filled($backUrl),
-])>
+]) wire:key="likert-tests-results">
     <div @class([
         'flex-1 flex flex-col justify-start items-stretch overflow-y-scroll' => true,
         'w-3/4 mx-auto' => filled($backUrl),

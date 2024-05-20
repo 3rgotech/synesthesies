@@ -7,9 +7,8 @@
             {!! $this->test->introduction !!}
         </div>
     </div>
-    @if (blank($results))
-        <div class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full sm:max-h-[50vh]"
-            x-data="likert">
+    <div class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full sm:max-h-[50vh]" x-data="likert">
+        @if (blank($results))
             <div
                 class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full overflow-y-scroll border-t border-b border-gray-200">
                 <template x-for="(question, questionIndex) in questions">
@@ -41,11 +40,12 @@
                     </div>
                 </template>
             </div>
-            <div class="flex-shrink-0 w-full lg:w-1/2 lg:mx-auto bg-gray-200 rounded-full dark:bg-gray-700 mt-4 h-4">
+            <div class="flex-shrink-0 w-full lg:w-1/2 lg:mx-auto bg-gray-200 rounded-full dark:bg-gray-700 mt-4 h-4"
+                x-show="results === null" x-key="progress-bar">
                 <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full h-4"
                     x-bind:style="{ width: progress + '%', minWidth: '30px' }" x-text="progress + '%'"></div>
             </div>
-            <div class="flex justify-center mt-2">
+            <div class="flex justify-center mt-2" x-show="results === null" x-key="results-button">
                 <button x-bind:disabled="remainingQuestions > 0" x-on:click="storeResults()"
                     class="block font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
                     x-bind:class="remainingQuestions === 0 ? 'cursor-pointer bg-gradient-to-r from-blue-700 to-purple-700' :
@@ -53,10 +53,10 @@
                     {{ __('public.test.save') }}
                 </button>
             </div>
-        </div>
-    @else
-        <x-likert-test-results :test="$this->test" :results="$results" :backUrl="route('test-list')" />
-    @endif
+        @else
+            <x-likert-test-results :test="$this->test" :results="$results" :backUrl="route('test-list')" />
+        @endif
+    </div>
 </div>
 @script
     <script>
@@ -65,26 +65,23 @@
                 scale: $wire.$entangle('scale'),
                 questions: $wire.$entangle('questions'),
                 results: $wire.$entangle('results'),
-                score: $wire.$entangle('score'),
                 remainingQuestions: $wire.$entangle('remainingQuestions'),
                 totalQuestions: $wire.$entangle('totalQuestions'),
                 currentIndex: 0,
                 progress: 0,
 
                 init() {
-                    console.log(this.totalQuestions, this.remainingQuestions);
                     this.$watch('remainingQuestions', () => {
                         this.updateDisplay();
                         this.$nextTick(() => {
                             document.getElementById('question-' + this.currentIndex)
-                                .scrollIntoView();
+                                ?.scrollIntoView();
                         });
                     });
                     this.updateDisplay();
                 },
                 updateDisplay() {
                     this.currentIndex = this.totalQuestions - this.remainingQuestions;
-                    console.log(this.currentIndex);
 
                     this.progress = Math.round(
                         Math.min(

@@ -55,7 +55,6 @@ class LikertTest extends Component
     {
         if ($this->remainingQuestions === 0) {
             // store results
-
             $data = collect($this->questions)
                 ->map(fn (array $question) => ['id' => $question['id'], 'response' => $question['response']])
                 ->toArray();
