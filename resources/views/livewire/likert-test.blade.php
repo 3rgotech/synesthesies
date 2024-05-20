@@ -1,16 +1,17 @@
 <div class="flex-1 flex flex-col items-stretch sm:max-h-[80vh]">
     <div class="flex flex-col items-stretch">
-        <div class="lg:w-2/3 lg:mx-auto my-3 text-lg leading-8 text-gray-600 flex flex-col items-stretch space-y-4">
+        <div
+            class="lg:w-3/4 xl:w-2/3 lg:mx-auto my-3 text-lg leading-8 text-gray-600 flex flex-col items-stretch space-y-4">
             <h1 class="text-bold text-4xl text-center">
                 {{ $this->test->title }}
             </h1>
             {!! $this->test->introduction !!}
         </div>
     </div>
-    <div class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full sm:max-h-[50vh]" x-data="likert">
+    <div class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full sm:h-[50vh]" x-data="likert">
         @if (blank($results))
             <div
-                class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full overflow-y-scroll border-t border-b border-gray-200">
+                class="flex-1 flex flex-col justify-start items-stretch mx-auto w-full border-t border-b border-gray-200">
                 <template x-for="(question, questionIndex) in questions">
                     <div class="flex items-center space-x-4 transition ease-in-out delay-150 border-b border-gray-200"
                         x-bind:id="'question-' + questionIndex" x-show="(questionIndex <= currentIndex)" x-transition>
@@ -45,7 +46,7 @@
                 <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full h-4"
                     x-bind:style="{ width: progress + '%', minWidth: '30px' }" x-text="progress + '%'"></div>
             </div>
-            <div class="flex justify-center mt-2" x-show="results === null" x-key="results-button">
+            <div class="flex justify-center mt-2 pb-16" x-show="results === null" x-key="results-button">
                 <button x-bind:disabled="remainingQuestions > 0" x-on:click="storeResults()"
                     class="block font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
                     x-bind:class="remainingQuestions === 0 ? 'cursor-pointer bg-gradient-to-r from-blue-700 to-purple-700' :

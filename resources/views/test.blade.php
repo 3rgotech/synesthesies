@@ -1,5 +1,6 @@
 <x-app-layout>
-    <div class="relative container mx-auto min-h-screen px-2 py-24 sm:py-16 flex flex-col justify-center items-stretch">
+    <div
+        class="relative container mx-auto min-h-screen px-2 lg:px-8 xl:px-16 py-24 sm:py-16 flex flex-col justify-center items-stretch">
         @if (filled($testComponent))
             <livewire:dynamic-component :is="$testComponent" :testId="$testId" />
         @else
