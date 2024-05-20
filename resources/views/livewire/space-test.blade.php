@@ -73,7 +73,7 @@
                                     height: 400
                                 });
                                 const crossLayer = new window.Konva.Layer();
-                                const size = 40;
+                                const size = 20;
                                 const leftX = this.stage.width() * 0.25;
                                 const leftY = this.stage.height() * 0.5;
                                 const rightX = this.stage.width() * 0.75;
