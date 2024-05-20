@@ -48,7 +48,7 @@
             <div class="flex justify-center mt-2">
                 <button x-bind:disabled="remainingQuestions > 0" x-on:click="storeResults()"
                     class="block font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
-                    x-bind:class="remainingQuestions === 0 ? 'bg-gradient-to-r from-blue-700 to-purple-700' :
+                    x-bind:class="remainingQuestions === 0 ? 'cursor-pointer bg-gradient-to-r from-blue-700 to-purple-700' :
                         'cursor-not-allowed bg-gradient-to-r from-blue-300 to-purple-300'">
                     {{ __('public.test.save') }}
                 </button>

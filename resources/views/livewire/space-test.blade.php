@@ -12,7 +12,7 @@
             <div class="flex justify-center">
                 <button x-on:click="next" x-bind:disabled="!canAdvance"
                     class="block font-semibold rounded-l-full rounded-r-full text-white py-2 px-4"
-                    x-bind:class="canAdvance ? 'bg-gradient-to-r from-blue-700 to-purple-700' :
+                    x-bind:class="canAdvance ? 'cursor-pointer bg-gradient-to-r from-blue-700 to-purple-700' :
                         'cursor-not-allowed bg-gradient-to-r from-blue-300 to-purple-300'">
                     {{ __('public.test.next') }}
                 </button>
