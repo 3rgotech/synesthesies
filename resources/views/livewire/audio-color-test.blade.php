@@ -165,7 +165,7 @@
                         },
                         next() {
                             if (this.noColor) {
-                                $wire.storeValue(null, Date.now() - this.start);
+                                $wire.storeValue(null, Date.now() - this.start, this.evolutive, this.shape);
                             } else {
                                 $wire.storeValue(this.selectedColor, Date.now() - this.start, this.evolutive, this.shape);
                             }

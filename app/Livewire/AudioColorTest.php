@@ -48,7 +48,7 @@ class AudioColorTest extends Component
         }
     }
 
-    public function storeValue(string|array|null $value, int $duration, string $evolutive, string $shape)
+    public function storeValue(string|array|null $value, int $duration, ?string $evolutive, ?string $shape)
     {
         $this->stimuli[$this->currentIndex]['value']    = $value;
         $this->stimuli[$this->currentIndex]['duration'] = $duration;
