@@ -101,10 +101,9 @@ class GraphemeColorTest extends Component
 
     protected function isValidForDistinctColors(array $responses): bool
     {
-        // If at least one item is an array, every item must be an array to return true, otherwise return false
-        $isArray = array_filter($responses, fn ($item) => is_array($item));
-        return in_array(true, $isArray)
-            && !in_array(false, $isArray);
+        // All items must have the same number of elements
+        $counts = array_map("count", $responses);
+        return count(array_unique($counts)) === 1;
     }
 
     protected function computeScore(array $responses): float
@@ -113,7 +112,7 @@ class GraphemeColorTest extends Component
         if (in_array(true, array_filter($responses, fn ($item) => is_array($item) && is_array($item[0])))) {
             $arraySize = count($responses[0]);
             return collect(range(0, $arraySize - 1))
-                ->map(fn ($i) => collect($responses)->map(fn ($item) => $item[$i]))
+                ->map(fn ($i) => collect($responses)->map(fn ($item) => $item[$i] ?? null))
                 ->map(fn ($item) => $this->computeScore($item->all()))
                 ->avg();
         } else {

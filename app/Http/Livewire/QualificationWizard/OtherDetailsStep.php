@@ -7,7 +7,7 @@ use Spatie\LivewireWizard\Components\StepComponent;
 
 class OtherDetailsStep extends StepComponent
 {
-    public string $spatial;
+    public ?string $spatial;
     public array $spatialSynesthesies;
     public ?string $subtitles;
 
