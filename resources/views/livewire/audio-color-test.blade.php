@@ -11,8 +11,9 @@
                         <div class="flex-1 flex flex-col items-stretch divide-y divide-gray-400">
                             <div class="flex-1 flex flex-col justify-center items-center px-8">
                                 <span class="block font-display font-light text-xl border-gray-600"
-                                    x-html="stimulus.label"
                                     x-bind:style="{ color: noColor ? '#000000' : selectedColor }">
+                                    <x-fas-file-audio class="h-24 w-24" />
+                                    <span class="sr-only" x-html="stimulus.label"></span>
                                 </span>
                                 <audio controls preload x-ref="audio">
                                     {{-- <source src="http://synesthesies.test/storage/4/a_pascal.wav" type="audio/x-wav"> --}}
