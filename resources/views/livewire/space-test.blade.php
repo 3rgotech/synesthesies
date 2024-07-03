@@ -105,10 +105,13 @@
                                 this.itemLayer = new window.Konva.Layer();
                                 this.stage.add(this.itemLayer);
                             }
+                            // 18 items per column
+                            const columns = Math.ceil(items.length / 18);
                             items.forEach((item, index) => {
                                 const text = new Konva.Text({
-                                    x: this.stage.width() * 0.9,
-                                    y: (index + 1) * 20,
+                                    x: this.stage.width() * (0.95 - (columns - Math.floor(index / 18)) *
+                                        0.05),
+                                    y: ((index % 18) + 1) * 20,
                                     text: item,
                                     fontSize: 20,
                                     fontFamily: 'Nunito Sans',
